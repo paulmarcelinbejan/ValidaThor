@@ -4,59 +4,109 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.paulmarcelinbejan.toolbox</groupId>
-    <artifactId>validathor</artifactId>
-    <version>1.0.0</version>
+    <developers>
+        <developer>
+            <name>Paul Marcelin Bejan</name>
+            <email>paulmarcelinbejan.developer@gmail.com</email>
+        </developer>
+    </developers>
 
-    <properties>
-        <!-- JAVA -->
-        <java.version>17</java.version>
+	<name>ValidaThor</name>
+	<description>Validation executed by Thor using his Mjölnir in the battle against bugs to protect the developer.</description>
+
+	<groupId>com.paulmarcelinbejan.toolbox</groupId>
+	<artifactId>validathor</artifactId>
+	<version>1.0.0</version>
+    <packaging>pom</packaging>
+
+	<properties>
+		<!-- JAVA -->
+		<java.version>17</java.version>
+		<!-- LOMBOK -->
+        <lombok.version>1.18.28</lombok.version>
         <!-- MAVEN -->
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <!-- LOMBOK -->
-        <lombok.version>1.18.28</lombok.version>
-    </properties>
+        <!-- JUnit -->
+        <junit.version>5.10.0</junit.version>
+	</properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-        </dependency>
+    <modules>
+        <module>validathor-base</module>
+        <module>validathor-bfs</module>
+        <module>validathor-dfs</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+	    
+            <!-- Lombok -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+				<scope>provided</scope>
+			</dependency>
+            
+            <dependency>
+		    	<groupId>org.junit.jupiter</groupId>
+			    <artifactId>junit-jupiter-api</artifactId>
+			    <version>${junit.version}</version>
+			    <scope>test</scope>
+			</dependency>
+
+            <!-- Validathor -->
+            <dependency>
+                <groupId>com.paulmarcelinbejan.toolbox</groupId>
+                <artifactId>validathor-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.paulmarcelinbejan.toolbox</groupId>
+                <artifactId>validathor-bfs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.paulmarcelinbejan.toolbox</groupId>
+                <artifactId>validathor-dfs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+        </dependencies>
+    </dependencyManagement>
+
+	<dependencies>
 		<dependency>
-		    <groupId>org.junit.jupiter</groupId>
-		    <artifactId>junit-jupiter-api</artifactId>
-		    <version>5.10.0</version>
-		    <scope>test</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler-plugin.version}</version>
-                    <configuration>
-                        <source>${java.version}</source> <!-- depending on your project -->
-                        <target>${java.version}</target> <!-- depending on your project -->
-                        <annotationProcessorPaths>
-                            <path>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok</artifactId>
-                                <version>${lombok.version}</version>
-                            </path>
-                        </annotationProcessorPaths>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+		<pluginManagement>
+	        <plugins>
+	            <plugin>
+		            <groupId>org.apache.maven.plugins</groupId>
+		            <artifactId>maven-compiler-plugin</artifactId>
+		            <version>${maven-compiler-plugin.version}</version>
+		            <configuration>
+		                <source>${java.version}</source> <!-- depending on your project -->
+		                <target>${java.version}</target> <!-- depending on your project -->
+		                <annotationProcessorPaths>
+		                    <path>
+				                <groupId>org.projectlombok</groupId>
+				                <artifactId>lombok</artifactId>
+				                <version>${lombok.version}</version>
+				            </path>
+		                </annotationProcessorPaths>
+		            </configuration>
+		        </plugin>
+	        </plugins>
+		</pluginManagement>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
         </plugins>
     </build>
 
