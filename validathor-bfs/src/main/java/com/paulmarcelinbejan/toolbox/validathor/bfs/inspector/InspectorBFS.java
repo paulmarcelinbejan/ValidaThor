@@ -138,23 +138,20 @@ public class InspectorBFS {
 			return Collections.emptyList();
 		}
 		
-		List<Info> fieldsToValidate = new ArrayList<>();
+		List<Info> newToExplore = new ArrayList<>();
+
 		if(!skipAfterValidation) {
-			fieldsToValidate = newToExplore(toValidate, ValidathorUtils.getFields(info.getToValidateClass()), fieldsNameToSkip);
+			List<Info> fieldsToValidate = newToExplore(toValidate, ValidathorUtils.getFields(info.getToValidateClass()), fieldsNameToSkip);
+			newToExplore.addAll(fieldsToValidate);
 		}
 		
 		boolean isToValidateParametrizedTypeElements = validathorParametrizedType.isToValidateParametrizedTypeElements();
 		
-		List<Info> elementsToValidate = new ArrayList<>();
 		if(isToValidateParametrizedTypeElements) {
 			Collection<?> objectsToValidate = validathorParametrizedType.parametrizedTypeElementsToValidate().apply(toValidate);
-			elementsToValidate = newToExplore(toValidate, info.getToValidateName(), objectsToValidate);
+			List<Info> elementsToValidate = newToExplore(toValidate, info.getToValidateName(), objectsToValidate);
+			newToExplore.addAll(elementsToValidate);
 		}
-		
-		List<Info> newToExplore = new ArrayList<>();
-		
-		newToExplore.addAll(fieldsToValidate);
-		newToExplore.addAll(elementsToValidate);
 		
 		return newToExplore;
 	}

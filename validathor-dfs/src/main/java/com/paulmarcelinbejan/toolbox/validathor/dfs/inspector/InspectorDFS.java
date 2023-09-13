@@ -161,21 +161,18 @@ public class InspectorDFS {
 		
 		List<Info> newToExplore = new ArrayList<>();
 		
-		List<Info> fieldsToValidate = new ArrayList<>();
 		if(!skipAfterValidation) {
-			fieldsToValidate = ValidathorUtils.newToExplore(toValidate, ValidathorUtils.getFields(info.getToValidateClass()), fieldsNameToSkip);
+			List<Info> fieldsToValidate = ValidathorUtils.newToExplore(toValidate, ValidathorUtils.getFields(info.getToValidateClass()), fieldsNameToSkip);
+			newToExplore.addAll(fieldsToValidate);
 		}
 		
 		boolean isToValidateParametrizedTypeElements = validathorParametrizedType.isToValidateParametrizedTypeElements();
 		
-		List<Info> elementsToValidate = new ArrayList<>();
 		if(isToValidateParametrizedTypeElements) {
 			Collection<?> objectsToValidate = validathorParametrizedType.parametrizedTypeElementsToValidate().apply(toValidate);
-			elementsToValidate = ValidathorUtils.newToExplore(toValidate, info.getToValidateName(), objectsToValidate);
+			List<Info> elementsToValidate = ValidathorUtils.newToExplore(toValidate, info.getToValidateName(), objectsToValidate);
+			newToExplore.addAll(elementsToValidate);
 		}
-		
-		newToExplore.addAll(fieldsToValidate);
-		newToExplore.addAll(elementsToValidate);
 		
 		for(Info infoToExplore : newToExplore) {
 			validate(infoToExplore);
