@@ -51,8 +51,6 @@ public abstract class ValidathorParametrizedType<T> extends Validathor<T> {
 	 * @return a Function that takes the parametrized object and return the elements to be validated.
 	 * Must return an empty collection if there aren't elements to be validated.
 	 */
-	//TODO return of the Function can be a list of a Class that contains a boolean and a Collection<?>, 
-	//the boolean field left is element can be null, or better a List<XYZ>
 	public abstract Function<T, Collection<?>> parametrizedTypeElementsToValidate();
 	 
 }
