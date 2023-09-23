@@ -21,7 +21,7 @@ import com.paulmarcelinbejan.toolbox.validathor.processor.config.SkipBeforeValid
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-class SkipValidatorTest {
+class SkipBeforeValidationProcessorTest {
 	
 	@Test
 	void SKIP_CLASS() {		

@@ -21,7 +21,7 @@ import com.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationPr
 import com.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
 import com.paulmarcelinbejan.toolbox.validathor.processor.config.SkipAfterValidationConfig;
 
-class ValidateThenSkipValidatorTest {
+class SkipAfterValidationProcessorTest {
 	
 	@Test
 	void VALIDATE_THEN_SKIP_CLASS() {
