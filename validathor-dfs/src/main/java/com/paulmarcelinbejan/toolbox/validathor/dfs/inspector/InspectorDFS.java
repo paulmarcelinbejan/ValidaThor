@@ -85,13 +85,7 @@ public class InspectorDFS {
 	private <T> void validateSimpleType(Info info, boolean skipAfterValidation) throws ValidathorException {
 		Validathor<T> validathor = (Validathor<T>) mapValidathors.get(info.getToValidateClass());
 		
-		List<String> fieldsNameToSkip = new ArrayList<>();
-		
-		if(validathor != null) {
-			
-			fieldsNameToSkip = validathor.getFieldsNameToSkip();
-			
-		} else {
+		if(validathor == null) {
 			
 			if(useCompatibleValidathorIfSpecificNotPresent) {
 				validathor = (Validathor<T>) ValidathorUtils.getCompatibleValidathor(info, mapValidathors, cacheMapCompatibleValidathors);
@@ -103,6 +97,8 @@ public class InspectorDFS {
 			}
 			
 		}
+		
+		List<String> fieldsNameToSkip = validathor.getFieldsNameToSkip();
 		
 		T toValidate = (T) info.getToValidateValue();
 		
@@ -128,13 +124,7 @@ public class InspectorDFS {
 	private <T> void validateParametrizedType(Info info, boolean skipAfterValidation) throws ValidathorException {
 		ValidathorParametrizedType<T> validathorParametrizedType = (ValidathorParametrizedType<T>) mapValidathorsParametrizedType.get(info.getToValidateClass());
 		
-		List<String> fieldsNameToSkip = new ArrayList<>();
-		
-		if(validathorParametrizedType != null) {
-			
-			fieldsNameToSkip = validathorParametrizedType.getFieldsNameToSkip();
-			
-		} else {
+		if(validathorParametrizedType == null) {
 			
 			if(useCompatibleValidathorIfSpecificNotPresent) {
 				validathorParametrizedType = (ValidathorParametrizedType<T>) ValidathorUtils.getCompatibleValidathorParametrizedType(info, mapValidathorsParametrizedType, cacheMapCompatibleValidathorsParametrizedType);
@@ -146,6 +136,8 @@ public class InspectorDFS {
 			}
 			
 		}
+		
+		List<String> fieldsNameToSkip = validathorParametrizedType.getFieldsNameToSkip();
 		
 		T toValidate = (T) info.getToValidateValue();
 		
