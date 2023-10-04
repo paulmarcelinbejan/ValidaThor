@@ -16,8 +16,8 @@ import com.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
 import com.paulmarcelinbejan.toolbox.validathor.exception.ExceptionMessagePattern;
 import com.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
 import com.paulmarcelinbejan.toolbox.validathor.info.Info;
-import com.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import com.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
+import com.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import com.paulmarcelinbejan.toolbox.validathor.registry.ValidathorRegistry;
 import com.paulmarcelinbejan.toolbox.validathor.utils.ValidathorUtils;
 

@@ -17,8 +17,8 @@ import com.paulmarcelinbejan.toolbox.validathor.dfs.utils.ObjectValorizator;
 import com.paulmarcelinbejan.toolbox.validathor.dfs.utils.ValidathorTestUtils;
 import com.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
 import com.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathorImpl;
-import com.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import com.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
+import com.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import com.paulmarcelinbejan.toolbox.validathor.processor.config.SkipAfterValidationConfig;
 
 class SkipAfterValidationProcessorTest {

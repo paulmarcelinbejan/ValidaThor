@@ -6,8 +6,8 @@ import java.util.List;
 import com.paulmarcelinbejan.toolbox.validathor.AbstractObjectValidathor;
 import com.paulmarcelinbejan.toolbox.validathor.Validathor;
 import com.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
-import com.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import com.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
+import com.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

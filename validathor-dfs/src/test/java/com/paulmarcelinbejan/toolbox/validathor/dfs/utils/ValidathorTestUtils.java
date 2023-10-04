@@ -7,8 +7,8 @@ import com.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
 import com.paulmarcelinbejan.toolbox.validathor.dfs.ValidathorDFS;
 import com.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
 import com.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathorImpl;
-import com.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import com.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
+import com.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import com.paulmarcelinbejan.toolbox.validathor.registry.ValidathorRegistry;
 
 import lombok.AccessLevel;

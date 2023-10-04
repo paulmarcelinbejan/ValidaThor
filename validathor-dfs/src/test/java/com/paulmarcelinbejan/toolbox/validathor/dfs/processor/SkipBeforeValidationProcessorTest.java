@@ -14,8 +14,8 @@ import com.paulmarcelinbejan.toolbox.validathor.dfs.entities.level1.Manufacturer
 import com.paulmarcelinbejan.toolbox.validathor.dfs.entities.level1.level2.Headquarters;
 import com.paulmarcelinbejan.toolbox.validathor.dfs.utils.ObjectValorizator;
 import com.paulmarcelinbejan.toolbox.validathor.dfs.utils.ValidathorTestUtils;
-import com.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import com.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
+import com.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import com.paulmarcelinbejan.toolbox.validathor.processor.config.SkipBeforeValidationConfig;
 
 import lombok.AllArgsConstructor;
