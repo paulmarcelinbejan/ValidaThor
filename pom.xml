@@ -14,7 +14,7 @@
 	<name>ValidaThor</name>
 	<description>Validation executed by Thor using his Mjölnir in the battle against bugs to protect the developer.</description>
 
-	<groupId>com.paulmarcelinbejan.toolbox</groupId>
+	<groupId>com.github.paulmarcelinbejan</groupId>
 	<artifactId>validathor</artifactId>
 	<version>1.0.0</version>
     <packaging>pom</packaging>
@@ -56,17 +56,17 @@
 
             <!-- Validathor -->
             <dependency>
-                <groupId>com.paulmarcelinbejan.toolbox</groupId>
+                <groupId>com.github.paulmarcelinbejan</groupId>
                 <artifactId>validathor-base</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.paulmarcelinbejan.toolbox</groupId>
+                <groupId>com.github.paulmarcelinbejan</groupId>
                 <artifactId>validathor-bfs</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.paulmarcelinbejan.toolbox</groupId>
+                <groupId>com.github.paulmarcelinbejan</groupId>
                 <artifactId>validathor-dfs</artifactId>
                 <version>${project.version}</version>
             </dependency>
