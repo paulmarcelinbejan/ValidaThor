@@ -30,7 +30,7 @@ public class ValidathorTestUtils {
 				.registerObjectValidathor(new ObjectValidathorImpl())
 				.registerValidathors(validathors)
 				.registerValidathorsParametrizedType(validathorsParametrizedType)
-				.useCompatibleValidathorIfSpecificNotPresent(false)
+				.useCompatibleValidathorIfSpecificNotPresent(true)
 				.build();
 				
 		validateObjectBFS(root, registry);
