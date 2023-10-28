@@ -7,12 +7,12 @@
     <parent>
         <groupId>com.github.paulmarcelinbejan</groupId>
         <artifactId>validathor</artifactId>
-        <version>1.0.0</version>
+        <version>3.0.0</version>
     </parent>
 
     <artifactId>validathor-bfs</artifactId>
     <name>Validathor BFS</name>
-    <version>1.0.0</version>
+    <version>3.0.0</version>
     <packaging>jar</packaging>
 	
 	<dependencies>
