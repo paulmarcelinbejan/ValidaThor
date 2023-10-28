@@ -4,22 +4,30 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-	<url>https://github.com/paulmarcelinbejan/ValidaThor</url>
-
     <developers>
         <developer>
             <name>Paul Marcelin Bejan</name>
             <email>paulmarcelinbejan.developer@gmail.com</email>
+            <organization>Paul Marcelin Bejan</organization>
+            <organizationUrl>https://github.com/paulmarcelinbejan</organizationUrl>
         </developer>
     </developers>
 
 	<name>ValidaThor</name>
 	<description>Validation executed by Thor using his Mjölnir in the battle against bugs to protect the developer.</description>
+	<url>https://github.com/paulmarcelinbejan/ValidaThor</url>
 
 	<groupId>io.github.paulmarcelinbejan.toolbox</groupId>
 	<artifactId>validathor</artifactId>
 	<version>3.0.0</version>
     <packaging>pom</packaging>
+
+	<licenses>
+	    <license>
+	        <name>MIT License</name>
+	        <url>http://www.opensource.org/licenses/mit-license.php</url>
+	    </license>
+	</licenses>
 
 	<properties>
 		<!-- JAVA -->
@@ -37,6 +45,12 @@
         <module>validathor-bfs</module>
         <module>validathor-dfs</module>
     </modules>
+
+	<scm>
+	    <connection>scm:git:git://github.com/paulmarcelinbejan/ValidaThor.git</connection>
+	    <developerConnection>scm:git:ssh://github.com:paulmarcelinbejan/ValidaThor.git</developerConnection>
+	    <url>https://github.com/paulmarcelinbejan/ValidaThor</url>
+	</scm>
 
 	<distributionManagement>
 	    <snapshotRepository>
@@ -97,6 +111,22 @@
     <build>
 		<pluginManagement>
 	        <plugins>
+			    <plugin>
+		            <groupId>org.apache.maven.plugins</groupId>
+		            <artifactId>maven-compiler-plugin</artifactId>
+		            <version>${maven-compiler-plugin.version}</version>
+		            <configuration>
+		                <source>${java.version}</source> <!-- depending on your project -->
+		                <target>${java.version}</target> <!-- depending on your project -->
+		                <annotationProcessorPaths>
+		                    <path>
+				                <groupId>org.projectlombok</groupId>
+				                <artifactId>lombok</artifactId>
+				                <version>${lombok.version}</version>
+				            </path>
+		                </annotationProcessorPaths>
+		            </configuration>
+		        </plugin>
 				<plugin>
 			        <groupId>org.apache.maven.plugins</groupId>
 			        <artifactId>maven-source-plugin</artifactId>
@@ -123,22 +153,31 @@
 			            </execution>
 			        </executions>
 			    </plugin>
-	            <plugin>
-		            <groupId>org.apache.maven.plugins</groupId>
-		            <artifactId>maven-compiler-plugin</artifactId>
-		            <version>${maven-compiler-plugin.version}</version>
-		            <configuration>
-		                <source>${java.version}</source> <!-- depending on your project -->
-		                <target>${java.version}</target> <!-- depending on your project -->
-		                <annotationProcessorPaths>
-		                    <path>
-				                <groupId>org.projectlombok</groupId>
-				                <artifactId>lombok</artifactId>
-				                <version>${lombok.version}</version>
-				            </path>
-		                </annotationProcessorPaths>
-		            </configuration>
-		        </plugin>
+			    <plugin>
+			        <groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-gpg-plugin</artifactId>
+			        <version>1.5</version>
+			        <executions>
+			            <execution>
+			              <id>sign-artifacts</id>
+			              <phase>verify</phase>
+			              <goals>
+			                  <goal>sign</goal>
+			              </goals>
+			            </execution>
+			        </executions>
+			    </plugin>
+			    <plugin>
+				    <groupId>org.sonatype.plugins</groupId>
+				    <artifactId>nexus-staging-maven-plugin</artifactId>
+				    <version>1.6.7</version>
+				    <extensions>true</extensions>
+				    <configuration>
+				        <serverId>ossrh</serverId>
+				        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+				        <autoReleaseAfterClose>true</autoReleaseAfterClose>
+				    </configuration>
+				</plugin>
 	        </plugins>
 		</pluginManagement>
         <plugins>
