@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.paulmarcelinbejan</groupId>
+        <groupId>com.github.paulmarcelinbejan.toolbox</groupId>
         <artifactId>validathor</artifactId>
         <version>3.0.0</version>
     </parent>
