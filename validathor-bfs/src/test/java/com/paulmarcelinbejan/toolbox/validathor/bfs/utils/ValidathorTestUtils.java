@@ -24,22 +24,22 @@ public class ValidathorTestUtils {
 	 */
 	public static void validateObjectBFS(@NonNull Object root, List<Validathor<?>> validathors, List<ValidathorParametrizedType<?>> validathorsParametrizedType) throws ValidathorException {
 		
-		SkipBeforeValidationProcessor skipBeforeValidationProcessor = new SkipBeforeValidationProcessor();
-		SkipAfterValidationProcessor skipAfterValidationProcessor = new SkipAfterValidationProcessor();
-		ObjectValidathorImpl objectValidathorImpl = new ObjectValidathorImpl();
-		
-		ValidathorRegistry registry = new ValidathorRegistry(skipBeforeValidationProcessor, skipAfterValidationProcessor, objectValidathorImpl, true);
-		
-		registry.registerValidathors(validathors);
-		registry.registerValidathorsParametrizedType(validathorsParametrizedType);
-		
+		ValidathorRegistry registry = ValidathorRegistry
+				.open()
+				.registerSkipBeforeValidationProcessor(new SkipBeforeValidationProcessor())
+				.registerSkipAfterValidationProcessor(new SkipAfterValidationProcessor())
+				.registerObjectValidathor(new ObjectValidathorImpl())
+				.registerValidathors(validathors)
+				.registerValidathorsParametrizedType(validathorsParametrizedType)
+				.useCompatibleValidathorIfSpecificNotPresent(false)
+				.close();
+				
 		validateObjectBFS(root, registry);
 		
 	}
 	
 	/**
 	 * Validate object through BFS (Breadth-first search).
-	 * <br> A default {@link ValidathorRegistry} will be used to validate the object.
 	 */
 	public static void validateObjectBFS(@NonNull Object root, SkipBeforeValidationProcessor skipBeforeValidationProcessor, SkipAfterValidationProcessor skipAfterValidationProcessor, List<Validathor<?>> validathors, List<ValidathorParametrizedType<?>> validathorsParametrizedType) throws ValidathorException {
 		

@@ -9,7 +9,7 @@ import com.paulmarcelinbejan.toolbox.validathor.processor.config.SkipAfterValida
 /**
  * Processor in charge of skipping classes or classes inside a package after the validation.
  * 
- * The skip is intended to avoid validation of fields.
+ * The skip is intended to avoid validation of inner fields.
  * 
  * For Parametrized Type class, it will skip fields but non necessary the validation of the elements.
  * Validation of elements rely on the property toValidateParametrizedTypeElements of the specific ValidathorParametrizedType.

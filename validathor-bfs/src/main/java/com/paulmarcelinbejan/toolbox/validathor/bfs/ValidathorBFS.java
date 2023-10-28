@@ -34,7 +34,7 @@ public class ValidathorBFS extends ValidathorBase {
 				.stream()
 				.map(field -> ValidathorUtils.buildInfo(toValidate, field))
 				.collect(Collectors.toCollection(LinkedList::new));
-	        
+		
 		while (!queue.isEmpty()) {
 			
 			Info currentlyExploring = queue.remove();
