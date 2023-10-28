@@ -25,14 +25,14 @@ public class ValidathorTestUtils {
 	public static void validateObjectBFS(@NonNull Object root, List<Validathor<?>> validathors, List<ValidathorParametrizedType<?>> validathorsParametrizedType) throws ValidathorException {
 		
 		ValidathorRegistry registry = ValidathorRegistry
-				.open()
+				.builder()
 				.registerSkipBeforeValidationProcessor(new SkipBeforeValidationProcessor())
 				.registerSkipAfterValidationProcessor(new SkipAfterValidationProcessor())
 				.registerObjectValidathor(new ObjectValidathorImpl())
 				.registerValidathors(validathors)
 				.registerValidathorsParametrizedType(validathorsParametrizedType)
 				.useCompatibleValidathorIfSpecificNotPresent(false)
-				.close();
+				.build();
 				
 		validateObjectBFS(root, registry);
 		

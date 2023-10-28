@@ -70,7 +70,7 @@ public class ValidathorRegistry {
 		
 		protected abstract B self();
 
-		public abstract C close();
+		public abstract C build();
 
 		public B registerSkipBeforeValidationProcessor(final SkipBeforeValidationProcessor skipBeforeValidationProcessor) {
 			this.skipBeforeValidationProcessor = skipBeforeValidationProcessor;
@@ -126,7 +126,7 @@ public class ValidathorRegistry {
 		}
 
 		@Override
-		public ValidathorRegistry close() {
+		public ValidathorRegistry build() {
 			if(super.skipBeforeValidationProcessor == null) {
 				super.skipBeforeValidationProcessor = new SkipBeforeValidationProcessor();
 			}
@@ -147,7 +147,7 @@ public class ValidathorRegistry {
 		this.validathorsParametrizedType = b.validathorsParametrizedType;
 	}
 
-	public static ValidathorRegistry.ValidathorRegistryBuilder<?, ?> open() {
+	public static ValidathorRegistry.ValidathorRegistryBuilder<?, ?> builder() {
 		return new ValidathorRegistry.ValidathorRegistryBuilderImpl();
 	}
 	
