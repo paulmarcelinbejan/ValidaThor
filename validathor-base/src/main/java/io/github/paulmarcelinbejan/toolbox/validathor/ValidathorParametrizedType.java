@@ -7,20 +7,14 @@ import lombok.Getter;
 
 /**
  * Example:
- * To validate a Map I will create MapValidathor<Map<?,?>>, the isValid implementation can be for example to check that the maps are not empty.
+ * To validate a Map I will create {@code MapValidathor<Map<?,?>>}, the isValid implementation can be for example to check that the maps are not empty.
  * 
- * <pre>{@code
- * 
- * return !map.isEmpty();
- * 
- * }</pre>
+ * <pre>{@code return !map.isEmpty(); }</pre>
  * 
  * What if you want to validate also the values of each entry ? You can set toValidateParametrizedTypeElements to true and then implement the Function that will return 
  * the elements of the map to be validated. It can decide to validate only the Values of the map, or you can validate also the Keys.
  * 
- * <pre>{@code
- * 
- * //function to return values
+ * <pre>{@code  //function to return values
  * map -> map.values();
  * 
  * //function to return keys and values
@@ -33,7 +27,6 @@ import lombok.Getter;
  *       
  *       return toValidate;
  * };
- *
  * }</pre>
  * 
  */

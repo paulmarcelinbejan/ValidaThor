@@ -62,7 +62,7 @@ public class ValidathorTestUtils {
 	 */
 	public static void validateObjectDFS(@NonNull Object root, @NonNull ValidathorRegistry validathorRegistry) throws ValidathorException {
 		ValidathorDFS validathorDFS = new ValidathorDFS(validathorRegistry, false);
-		validathorDFS.isValid(root);
+		validathorDFS.validate(root);
 	}
 	
 }

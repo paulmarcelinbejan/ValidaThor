@@ -1,7 +1,6 @@
 package io.github.paulmarcelinbejan.toolbox.validathor.processor;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.function.Predicate;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.enums.PackagesEnum;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.config.SkipAfterValidationConfig;
@@ -14,40 +13,28 @@ import io.github.paulmarcelinbejan.toolbox.validathor.processor.config.SkipAfter
  * For Parametrized Type class, it will skip fields but non necessary the validation of the elements.
  * Validation of elements rely on the property toValidateParametrizedTypeElements of the specific ValidathorParametrizedType.
  */
-public class SkipAfterValidationProcessor {
-	
-	private final Set<Class<?>> validateThenSkipClasses;
-	private final Set<String> validateThenSkipPackages;
+public class SkipAfterValidationProcessor extends SkipProcessor {
 	
 	public SkipAfterValidationProcessor() {
-		validateThenSkipClasses = new HashSet<>();
-		validateThenSkipPackages = new HashSet<>();
-		validateThenSkipPackages.add(PackagesEnum.JAVA.value);
+		super();
+		skipPackages.add(PackagesEnum.JAVA.value);
 	}
 	
 	public SkipAfterValidationProcessor(final SkipAfterValidationConfig skipAfterValidationConfig) {
-		this.validateThenSkipClasses = skipAfterValidationConfig.getValidateThenSkipClasses();
-		this.validateThenSkipPackages = skipAfterValidationConfig.getValidateThenSkipPackages();
-		validateThenSkipPackages.add(PackagesEnum.JAVA.value);
+		super(skipAfterValidationConfig.getAfterValidationSkipClasses(), skipAfterValidationConfig.getAfterValidationSkipPackages());
+		skipPackages.add(PackagesEnum.JAVA.value);
 	}
 	
-	public boolean execute(final Class<?> toValidateClass) {
-		return validateThenSkipEnum(toValidateClass) || validateThenSkipClass(toValidateClass) || validateThenSkipPackage(toValidateClass);
+	@Override
+	protected Predicate<Class<?>> toSkip() {
+		return toValidateClass -> skipEnum(toValidateClass) || skipByClass(toValidateClass) || skipByPackage(toValidateClass);
 	}
 	
-	private boolean validateThenSkipEnum(final Class<?> toValidateClass) {
+	/**
+	 * skip enum class after validation
+	 */
+	private boolean skipEnum(final Class<?> toValidateClass) {
 		return toValidateClass.isEnum();
-	}
-	
-	private boolean validateThenSkipClass(final Class<?> toValidateClass) {
-		return validateThenSkipClasses.contains(toValidateClass);
-	}
-	
-	private boolean validateThenSkipPackage(final Class<?> toValidateClass) {
-		Package toValidatePackage = toValidateClass.getPackage();
-		if(toValidatePackage == null) return false;
-		String toValidatePackageName = toValidatePackage.getName();
-		return validateThenSkipPackages.parallelStream().anyMatch(toValidatePackageName::startsWith);
 	}
 	
 }

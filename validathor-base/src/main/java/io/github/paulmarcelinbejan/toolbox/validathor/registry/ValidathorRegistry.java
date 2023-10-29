@@ -12,11 +12,21 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+/**
+ * The ValidathorRegistry contains all the necessary configuration
+ */
 @Getter
 @RequiredArgsConstructor
 public class ValidathorRegistry {
 
+	/**
+	 * skipBeforeValidationProcessor
+	 */
 	private final SkipBeforeValidationProcessor skipBeforeValidationProcessor;
+	
+	/**
+	 * skipAfterValidationProcessor
+	 */
 	private final SkipAfterValidationProcessor skipAfterValidationProcessor;
 	
 	/**
@@ -24,7 +34,14 @@ public class ValidathorRegistry {
 	 */
 	private final AbstractObjectValidathor defaultValidathor;
 	
+	/**
+	 * Validathors to be used in order to validate specific classes
+	 */
 	private List<Validathor<?>> validathors = new ArrayList<>();
+	
+	/**
+	 *  Validathors to be used in order to validate specific classes of Parametrized Type
+	 */
 	private List<ValidathorParametrizedType<?>> validathorsParametrizedType = new ArrayList<>();
 	
 	/**
@@ -34,24 +51,39 @@ public class ValidathorRegistry {
 	 */
 	private final boolean useCompatibleValidathorIfSpecificNotPresent;
 	
+	/**
+	 * registerValidathor
+	 */
 	public void registerValidathor(Validathor<?> validathor) {
 		validathors.add(validathor);
 	}
 	
+	/**
+	 * registerValidathors
+	 */
 	public void registerValidathors(List<Validathor<?>> validathors) {
 		this.validathors.addAll(validathors);
 	}
 	
+	/**
+	 * registerValidathorParametrizedType
+	 */
 	public void registerValidathorParametrizedType(ValidathorParametrizedType<?> validathorParametrizedType) {
 		validathorsParametrizedType.add(validathorParametrizedType);
 	}
 	
+	/**
+	 * registerValidathorsParametrizedType
+	 */
 	public void registerValidathorsParametrizedType(List<ValidathorParametrizedType<?>> validathorsParametrizedType) {
 		this.validathorsParametrizedType.addAll(validathorsParametrizedType);
 	}
 	
 	// BUILDER WITH FLUENT API
 	
+	/**
+	 * ValidathorRegistryBuilder
+	 */
 	@ToString
 	public abstract static class ValidathorRegistryBuilder<C extends ValidathorRegistry, B extends ValidathorRegistry.ValidathorRegistryBuilder<C, B>> {
 		
@@ -140,12 +172,18 @@ public class ValidathorRegistry {
 		
 	}
 
+	/**
+	 * Constructor with Builder
+	 */
 	protected ValidathorRegistry(final ValidathorRegistry.ValidathorRegistryBuilder<?, ?> b) {
 		this(b.skipBeforeValidationProcessor, b.skipAfterValidationProcessor, b.defaultValidathor, b.useCompatibleValidathorIfSpecificNotPresent);
 		this.validathors = b.validathors;
 		this.validathorsParametrizedType = b.validathorsParametrizedType;
 	}
 
+	/**
+	 * return a new builder
+	 */
 	public static ValidathorRegistry.ValidathorRegistryBuilder<?, ?> builder() {
 		return new ValidathorRegistry.ValidathorRegistryBuilderImpl();
 	}

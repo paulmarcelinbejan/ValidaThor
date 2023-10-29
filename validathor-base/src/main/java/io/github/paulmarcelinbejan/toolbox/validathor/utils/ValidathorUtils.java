@@ -18,39 +18,65 @@ import io.github.paulmarcelinbejan.toolbox.validathor.info.Info;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * Utility methods
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ValidathorUtils {
 	
+	/**
+	 * getObject
+	 */
 	public static Object getObject(final Object outerObject, final Field field) {
+//		boolean isFieldAccessible = field.canAccess(outerObject); //TODO
 		field.setAccessible(true);
 		try {
 			return field.get(outerObject);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
+		
 	}
 	
+	/**
+	 * getObject
+	 */
 	public static List<Field> getFields(final Class<?> clazz) {
 		return new ArrayList<>(Arrays.asList(clazz.getDeclaredFields()));
 	}
 	
+	/**
+	 * getClassTypeFromParameterizedType
+	 */
 	public static Class<?> getClassTypeFromParameterizedType(final Field field, final int indexParameterizedTypeArgument){
 		ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
         return (Class<?>) parameterizedType.getActualTypeArguments()[indexParameterizedTypeArgument];
 	}
 	
+	/**
+	 * buildInfo
+	 */
 	public static Info buildInfo(Object outerObject, Field field) {
 		return new Info(outerObject, outerObject.toString(), field.getType(), field.getName(), getObject(outerObject, field));
 	}
 	
+	/**
+	 * buildInfo
+	 */
 	public static Info buildInfo(Object outerObject, Object object, String fieldName) {
 		return new Info(outerObject, outerObject.toString(), object.getClass(), fieldName, object);
 	}
 	
+	/**
+	 * isToValidateClassPrimitive
+	 */
 	public static boolean isToValidateClassPrimitive(Info info) {
 		return info.getToValidateClass().isPrimitive();
 	}
 	
+	/**
+	 * isParameterizedType
+	 */
 	public static boolean isParameterizedType(Class<?> clazz) {
 		TypeVariable<?>[] genericTypes = clazz.getTypeParameters();
 		return genericTypes.length > 0;
@@ -102,6 +128,9 @@ public class ValidathorUtils {
         return Optional.empty();
     }
 	
+	/**
+	 * getCompatibleValidathor
+	 */
 	public static Validathor<?> getCompatibleValidathor(Info info, Map<Class<?>, Validathor<?>> mapValidathors, Map<Class<?>, Validathor<?>> cacheMapCompatibleValidathors) {
 		Validathor<?> compatibleValidathor = cacheMapCompatibleValidathors.get(info.getToValidateClass());
 		
@@ -119,6 +148,9 @@ public class ValidathorUtils {
 		return compatibleValidathor;
 	}
 	
+	/**
+	 * getCompatibleValidathorParametrizedType
+	 */
 	public static ValidathorParametrizedType<?> getCompatibleValidathorParametrizedType(Info info, Map<Class<?>, ValidathorParametrizedType<?>> mapValidathorsParametrizedType, Map<Class<?>, ValidathorParametrizedType<?>> cacheMapCompatibleValidathorsParametrizedType) {
 		ValidathorParametrizedType<?> compatibleValidathorParametrizedType = cacheMapCompatibleValidathorsParametrizedType.get(info.getToValidateClass());
 		
@@ -136,6 +168,9 @@ public class ValidathorUtils {
 		return compatibleValidathorParametrizedType;
 	}
 	
+	/**
+	 * newToExplore
+	 */
 	public static List<Info> newToExplore(final Object outerObject, final List<Field> toValidateFields, List<String> fieldsNameToSkip) {
 		return toValidateFields.stream()
 							   .filter(field -> !fieldsNameToSkip.contains(field.getName()))
@@ -143,6 +178,9 @@ public class ValidathorUtils {
 							   .toList();
 	}
 	
+	/**
+	 * newToExplore
+	 */
 	public static List<Info> newToExplore(final Object outerObject, String fieldName, final Collection<?> objectsToValidate) {
 		return objectsToValidate.stream()
 								.filter(Objects::nonNull)

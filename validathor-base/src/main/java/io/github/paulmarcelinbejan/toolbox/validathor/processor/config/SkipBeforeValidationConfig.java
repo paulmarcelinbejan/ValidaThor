@@ -3,7 +3,6 @@ package io.github.paulmarcelinbejan.toolbox.validathor.processor.config;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -17,39 +16,45 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-@AllArgsConstructor
 public class SkipBeforeValidationConfig {
 	
 	@NonNull
-	private Set<Class<?>> skipClasses;
+	private Set<Class<?>> beforeValidationSkipClasses;
 	
 	@NonNull
-	private Set<String> skipPackages;
+	private Set<String> beforeValidationSkipPackages;
 	
 	/**
 	 * new instance with default value
 	 */
 	public SkipBeforeValidationConfig() {
-		skipClasses = new HashSet<>();
-		skipPackages = new HashSet<>();
+		beforeValidationSkipClasses = new HashSet<>();
+		beforeValidationSkipPackages = new HashSet<>();
+	}
+	
+	public SkipBeforeValidationConfig(
+			Set<Class<?>> beforeValidationSkipClasses,
+			Set<String> beforeValidationSkipPackages) {
+		this.beforeValidationSkipClasses = beforeValidationSkipClasses;
+		this.beforeValidationSkipPackages = beforeValidationSkipPackages;
 	}
 	
 	@java.lang.SuppressWarnings("all")
 	public static abstract class SkipBeforeValidationConfigBuilder<C extends SkipBeforeValidationConfig, B extends SkipBeforeValidationConfig.SkipBeforeValidationConfigBuilder<C, B>> {
 	
 		public B withDefault() {
-			withDefaultSkipClasses();
-			withDefaultSkipPackages();
+			withDefaultBeforeValidationSkipClasses();
+			withDefaultBeforeValidationSkipPackages();
 			return self();
 		}
 		
-		public B withDefaultSkipClasses() {
-			this.skipClasses = new HashSet<>();
+		public B withDefaultBeforeValidationSkipClasses() {
+			this.beforeValidationSkipClasses = new HashSet<>();
 			return self();
 		}
 		
-		public B withDefaultSkipPackages() {
-			this.skipPackages = new HashSet<>();
+		public B withDefaultBeforeValidationSkipPackages() {
+			this.beforeValidationSkipPackages = new HashSet<>();
 			return self();
 		}
 		

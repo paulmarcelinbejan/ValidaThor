@@ -30,6 +30,8 @@
 	</licenses>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- JAVA -->
 		<java.version>17</java.version>
 		<!-- LOMBOK -->
@@ -122,6 +124,7 @@
 		            <configuration>
 		                <source>${java.version}</source> <!-- depending on your project -->
 		                <target>${java.version}</target> <!-- depending on your project -->
+		                <encoding>${project.build.sourceEncoding}</encoding>
 		                <annotationProcessorPaths>
 		                    <path>
 				                <groupId>org.projectlombok</groupId>

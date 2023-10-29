@@ -3,7 +3,7 @@ package io.github.paulmarcelinbejan.toolbox.validathor.dfs;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import io.github.paulmarcelinbejan.toolbox.validathor.base.ValidathorBase;
+import io.github.paulmarcelinbejan.toolbox.validathor.base.AlgorithmValidathorBase;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.inspector.InspectorDFS;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
 import io.github.paulmarcelinbejan.toolbox.validathor.info.Info;
@@ -11,7 +11,10 @@ import io.github.paulmarcelinbejan.toolbox.validathor.registry.ValidathorRegistr
 import io.github.paulmarcelinbejan.toolbox.validathor.utils.ValidathorUtils;
 import lombok.NonNull;
 
-public class ValidathorDFS extends ValidathorBase {
+/**
+ * ValidathorBFS uses Depth-first search to validate the object
+ */
+public class ValidathorDFS extends AlgorithmValidathorBase {
 
 	public ValidathorDFS(ValidathorRegistry validathorRegistry, boolean collectAllValidationException) {
 		super(validathorRegistry, collectAllValidationException);
@@ -19,10 +22,13 @@ public class ValidathorDFS extends ValidathorBase {
 		inspector.setCollectAllValidationException(collectAllValidationException);
 	}
 	
+	/**
+	 * inspector
+	 */
 	private final InspectorDFS inspector;
 	
 	@Override
-	public void isValid(@NonNull Object toValidate) throws ValidathorException {
+	public void validate(@NonNull Object toValidate) throws ValidathorException {
 		
 		List<Info> fieldsToValidate = ValidathorUtils.getFields(toValidate.getClass())
 				.stream()

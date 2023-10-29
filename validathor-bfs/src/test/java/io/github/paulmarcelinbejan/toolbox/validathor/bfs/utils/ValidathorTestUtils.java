@@ -62,7 +62,7 @@ public class ValidathorTestUtils {
 	 */
 	public static void validateObjectBFS(@NonNull Object root, @NonNull ValidathorRegistry validathorRegistry) throws ValidathorException {
 		ValidathorBFS validathorBFS = new ValidathorBFS(validathorRegistry, false);
-		validathorBFS.isValid(root);
+		validathorBFS.validate(root);
 	}
 	
 }

@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.enums.PackagesEnum;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -17,54 +16,54 @@ import lombok.experimental.SuperBuilder;
  * <p>
  * Example:
  * <br>BigDecimal is a class that you may want to validate, to be sure that is not null, but you probably want to skip the validation of internal fields.
+ * <br>
+ * <br>For this reason the "java" package is skipped by default.
  */
 @Getter
 @Setter
 @SuperBuilder
-@AllArgsConstructor
 public class SkipAfterValidationConfig {
+
+	@NonNull
+	private Set<Class<?>> afterValidationSkipClasses;
 	
 	@NonNull
-	private Set<Class<?>> validateThenSkipClasses;
-	
-	@NonNull
-	private Set<String> validateThenSkipPackages;
+	private Set<String> afterValidationSkipPackages;
 	
 	/**
 	 * new instance with default value
 	 * <br>validateThenSkipPackages with java package
 	 */
 	public SkipAfterValidationConfig() {
-		validateThenSkipClasses = new HashSet<>();
-		validateThenSkipPackages = new HashSet<>();
-		validateThenSkipPackages.add(PackagesEnum.JAVA.value);
+		afterValidationSkipClasses = new HashSet<>();
+		afterValidationSkipPackages = new HashSet<>();
+		afterValidationSkipPackages.add(PackagesEnum.JAVA.value);
+	}
+	
+	public SkipAfterValidationConfig(
+			Set<Class<?>> afterValidationSkipClasses,
+			Set<String> afterValidationSkipPackages) {
+		this.afterValidationSkipClasses = afterValidationSkipClasses;
+		this.afterValidationSkipPackages = afterValidationSkipPackages;
+		this.afterValidationSkipPackages.add(PackagesEnum.JAVA.value);
 	}
 	
 	@java.lang.SuppressWarnings("all")
 	public static abstract class SkipAfterValidationConfigBuilder<C extends SkipAfterValidationConfig, B extends SkipAfterValidationConfig.SkipAfterValidationConfigBuilder<C, B>> {
 	
-		/**
-		 * validateThenSkipPackages contains java package
-		 */
 		public B withDefault() {
-			withDefaultValidateThenSkipClasses();
-			withDefaultValidateThenSkipPackages();
+			withDefaultAfterValidationSkipClasses();
+			withDefaultAfterValidationSkipPackages();
 			return self();
 		}
 		
-		public B withDefaultValidateThenSkipClasses() {
-			Set<Class<?>> validateThenSkipClasses = new HashSet<>();
-			this.validateThenSkipClasses = validateThenSkipClasses;
+		public B withDefaultAfterValidationSkipClasses() {
+			this.afterValidationSkipClasses = new HashSet<>();
 			return self();
 		}
 		
-		/**
-		 * validateThenSkipPackages contains java package
-		 */
-		public B withDefaultValidateThenSkipPackages() {
-			Set<String> validateThenSkipPackages = new HashSet<>();
-			validateThenSkipPackages.add(PackagesEnum.JAVA.value);
-			this.validateThenSkipPackages = validateThenSkipPackages;
+		public B withDefaultAfterValidationSkipPackages() {
+			this.afterValidationSkipPackages = new HashSet<>();
 			return self();
 		}
 		

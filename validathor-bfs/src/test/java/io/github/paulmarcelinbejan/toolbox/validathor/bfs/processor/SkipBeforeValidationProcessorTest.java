@@ -28,7 +28,7 @@ class SkipBeforeValidationProcessorTest {
 		ferrari.getManufacturer().setHeadquarters(null);
 		
 		SkipBeforeValidationConfig skipBeforeValidationConfig = new SkipBeforeValidationConfig();
-		skipBeforeValidationConfig.getSkipClasses().add(Headquarters.class);
+		skipBeforeValidationConfig.getBeforeValidationSkipClasses().add(Headquarters.class);
 		SkipBeforeValidationProcessor skipBeforeValidationProcessor = new SkipBeforeValidationProcessor(skipBeforeValidationConfig);
 		
 		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
@@ -42,7 +42,7 @@ class SkipBeforeValidationProcessorTest {
 		ferrari.getManufacturer().setHeadquarters(null);
 		
 		SkipBeforeValidationConfig skipBeforeValidationConfig = new SkipBeforeValidationConfig();
-		skipBeforeValidationConfig.getSkipPackages().add("io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1.level2");
+		skipBeforeValidationConfig.getBeforeValidationSkipPackages().add("io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1.level2");
 		SkipBeforeValidationProcessor skipBeforeValidationProcessor = new SkipBeforeValidationProcessor(skipBeforeValidationConfig);
 		
 		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
@@ -59,7 +59,7 @@ class SkipBeforeValidationProcessorTest {
 		Something something = new Something(manufacturer, headquarters);
 		
 		SkipBeforeValidationConfig skipBeforeValidationConfig = new SkipBeforeValidationConfig();
-		skipBeforeValidationConfig.getSkipPackages().add("io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1");
+		skipBeforeValidationConfig.getBeforeValidationSkipPackages().add("io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1");
 		SkipBeforeValidationProcessor skipBeforeValidationProcessor = new SkipBeforeValidationProcessor(skipBeforeValidationConfig);
 		
 		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));

@@ -29,7 +29,7 @@ class SkipAfterValidationProcessorTest {
 		ferrari.getManufacturer().setHeadquarters(null);
 		
 		SkipAfterValidationConfig skipAfterValidationConfig = new SkipAfterValidationConfig();
-		skipAfterValidationConfig.getValidateThenSkipClasses().add(Headquarters.class);
+		skipAfterValidationConfig.getAfterValidationSkipClasses().add(Headquarters.class);
 		SkipAfterValidationProcessor skipAfterValidationProcessor = new SkipAfterValidationProcessor(skipAfterValidationConfig);
 		
 		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
@@ -48,7 +48,7 @@ class SkipAfterValidationProcessorTest {
 		ferrari.getManufacturer().setHeadquarters(null);
 		
 		SkipAfterValidationConfig skipAfterValidationConfig = new SkipAfterValidationConfig();
-		skipAfterValidationConfig.getValidateThenSkipPackages().add("io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1.level2");
+		skipAfterValidationConfig.getAfterValidationSkipPackages().add("io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1.level2");
 		SkipAfterValidationProcessor skipAfterValidationProcessor = new SkipAfterValidationProcessor(skipAfterValidationConfig);
 		
 		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));

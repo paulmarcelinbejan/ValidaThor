@@ -4,61 +4,38 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import io.github.paulmarcelinbejan.toolbox.validathor.AbstractObjectValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ExceptionMessagePattern;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
 import io.github.paulmarcelinbejan.toolbox.validathor.info.Info;
-import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
-import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
+import io.github.paulmarcelinbejan.toolbox.validathor.inspector.InspectorBase;
 import io.github.paulmarcelinbejan.toolbox.validathor.registry.ValidathorRegistry;
 import io.github.paulmarcelinbejan.toolbox.validathor.utils.ValidathorUtils;
 
-public class InspectorBFS {
+/**
+ * InspectorBFS uses Breadth-first search to validate the object
+ */
+public class InspectorBFS extends InspectorBase {
 	
 	public InspectorBFS(ValidathorRegistry registry) {
-		skipBeforeValidationProcessor = registry.getSkipBeforeValidationProcessor();
-		skipAfterValidationProcessor = registry.getSkipAfterValidationProcessor();
-		
-		defaultValidathor = registry.getDefaultValidathor();
-		validathors = registry.getValidathors();
-		mapValidathors = validathors.stream().collect(Collectors.toMap(Validathor::getTypeParameterClass, validathor -> validathor));
-		validathorsParametrizedType = registry.getValidathorsParametrizedType();
-		mapValidathorsParametrizedType = validathorsParametrizedType.stream().collect(Collectors.toMap(ValidathorParametrizedType::getTypeParameterClass, validathor -> validathor));
-		
-		useCompatibleValidathorIfSpecificNotPresent = registry.isUseCompatibleValidathorIfSpecificNotPresent();
+		super(registry);
 	}
-
-	private final SkipBeforeValidationProcessor skipBeforeValidationProcessor;
-	private final SkipAfterValidationProcessor skipAfterValidationProcessor;
-	private final AbstractObjectValidathor defaultValidathor;
 	
-	private final List<Validathor<?>> validathors;
-	private final Map<Class<?>, Validathor<?>> mapValidathors;
-	private final List<ValidathorParametrizedType<?>> validathorsParametrizedType;
-	private final Map<Class<?>, ValidathorParametrizedType<?>> mapValidathorsParametrizedType;
-	
-	private final boolean useCompatibleValidathorIfSpecificNotPresent;
-	
-	private Map<Class<?>, Validathor<?>> cacheMapCompatibleValidathors = new HashMap<>();
-	private Map<Class<?>, ValidathorParametrizedType<?>> cacheMapCompatibleValidathorsParametrizedType = new HashMap<>();
-	
-	
+	/**
+	 * validate currently exploring info
+	 */
 	public List<Info> validate(Info info) throws ValidathorException {		
-		boolean skipBeforeValidation = skipBeforeValidationProcessor.execute(info.getToValidateClass());
+		boolean skipBeforeValidation = registry.getSkipBeforeValidationProcessor().execute(info.getToValidateClass());
 		
 		if(skipBeforeValidation) {
 			return Collections.emptyList();
 		}
 		
-		boolean skipAfterValidation = skipAfterValidationProcessor.execute(info.getToValidateClass());
+		boolean skipAfterValidation = registry.getSkipAfterValidationProcessor().execute(info.getToValidateClass());
 		
 		if(info.is_ToValidateClass_InstanceOf_ParametrizedType()) {
 			return validateParametrizedType(info, skipAfterValidation);
@@ -67,13 +44,16 @@ public class InspectorBFS {
 		return validateSimpleType(info, skipAfterValidation);
 	}
 	
+	/**
+	 * validateSimpleType
+	 */
 	@SuppressWarnings("unchecked")
 	private <T> List<Info> validateSimpleType(Info info, boolean skipAfterValidation) throws ValidathorException {
 		Validathor<T> validathor = (Validathor<T>) mapValidathors.get(info.getToValidateClass());
 		
 		if(validathor == null) {
 			
-			if(useCompatibleValidathorIfSpecificNotPresent) {
+			if(registry.isUseCompatibleValidathorIfSpecificNotPresent()) {
 				validathor = (Validathor<T>) ValidathorUtils.getCompatibleValidathor(info, mapValidathors, cacheMapCompatibleValidathors);
 			}
 			
@@ -100,13 +80,16 @@ public class InspectorBFS {
 		return newToExplore(toValidate, ValidathorUtils.getFields(info.getToValidateClass()), fieldsNameToSkip);
 	}
 	
+	/**
+	 * validateParametrizedType
+	 */
 	@SuppressWarnings("unchecked")
 	private <T> List<Info> validateParametrizedType(Info info, boolean skipAfterValidation) throws ValidathorException {
 		ValidathorParametrizedType<T> validathorParametrizedType = (ValidathorParametrizedType<T>) mapValidathorsParametrizedType.get(info.getToValidateClass());
 		
 		if(validathorParametrizedType == null) {
 			
-			if(useCompatibleValidathorIfSpecificNotPresent) {
+			if(registry.isUseCompatibleValidathorIfSpecificNotPresent()) {
 				validathorParametrizedType = (ValidathorParametrizedType<T>) ValidathorUtils.getCompatibleValidathorParametrizedType(info, mapValidathorsParametrizedType, cacheMapCompatibleValidathorsParametrizedType);
 			}
 			
@@ -148,20 +131,26 @@ public class InspectorBFS {
 		return newToExplore;
 	}
 	
+	/**
+	 * validateWithDefaultValidathor
+	 */
 	private List<Info> validateWithDefaultValidathor(Info info, boolean skipAfterValidation) throws ValidathorException {
-		boolean isValid = defaultValidathor.isValid(info.getToValidateValue());
+		boolean isValid = registry.getDefaultValidathor().isValid(info.getToValidateValue());
 		
 		if(!isValid) {
-			throw new ValidathorException(defaultValidathor, ExceptionMessagePattern.VALIDATION_FAILED, defaultValidathor.getClass().getSimpleName(), info.getToValidateName(), info.getOuterObject());
+			throw new ValidathorException(registry.getDefaultValidathor(), ExceptionMessagePattern.VALIDATION_FAILED, registry.getDefaultValidathor().getClass().getSimpleName(), info.getToValidateName(), info.getOuterObject());
 		}
 		
-		if(skipAfterValidation || info.getToValidateValue() == null || !defaultValidathor.isValidateInnerFields()) {
+		if(skipAfterValidation || info.getToValidateValue() == null || !registry.getDefaultValidathor().isValidateInnerFields()) {
 			return Collections.emptyList();
 		}
 		
 		return newToExplore(info.getToValidateValue(), ValidathorUtils.getFields(info.getToValidateClass()), Collections.emptyList());
 	}
 	
+	/**
+	 * newToExplore
+	 */
 	private List<Info> newToExplore(final Object outerObject, final List<Field> toValidateFields, List<String> fieldsNameToSkip) {
 		return toValidateFields.stream()
 							   .filter(field -> !fieldsNameToSkip.contains(field.getName()))
@@ -169,6 +158,9 @@ public class InspectorBFS {
 							   .toList();
 	}
 	
+	/**
+	 * newToExplore
+	 */
 	private List<Info> newToExplore(final Object outerObject, String fieldName, final Collection<?> objectsToValidate) {
 		return objectsToValidate.stream()
 								.filter(Objects::nonNull)

@@ -5,14 +5,26 @@ import io.github.paulmarcelinbejan.toolbox.validathor.registry.ValidathorRegistr
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * AlgorithmValidathorBase for different Algorithm (BFS, DFS)
+ */
 @Getter
 @RequiredArgsConstructor
-public abstract class ValidathorBase {
+public abstract class AlgorithmValidathorBase {
 	
+	/**
+	 * Configure the validation through ValidathorRegistry
+	 */
 	protected final ValidathorRegistry validathorRegistry;
 	
+	/**
+	 * configure if an exception must be thrown immediately, or must be collected and throwned at the end of the validation.
+	 */
 	protected final boolean collectAllValidationException;
 	
-	public abstract void isValid(final Object toValidate) throws ValidathorException;
+	/**
+	 * validate the object
+	 */
+	public abstract void validate(final Object toValidate) throws ValidathorException;
 	
 }
