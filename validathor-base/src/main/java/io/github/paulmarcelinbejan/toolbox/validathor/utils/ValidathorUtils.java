@@ -28,14 +28,20 @@ public class ValidathorUtils {
 	 * getObject
 	 */
 	public static Object getObject(final Object outerObject, final Field field) {
-//		boolean isFieldAccessible = field.canAccess(outerObject); //TODO
-		field.setAccessible(true);
+		boolean isFieldAccessible = field.canAccess(outerObject);
+		if(!isFieldAccessible) {
+			field.setAccessible(true);
+		}
+		Object object;
 		try {
-			return field.get(outerObject);
+			object = field.get(outerObject);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
-		
+		if(!isFieldAccessible) {
+			field.setAccessible(false);
+		}
+		return object;
 	}
 	
 	/**

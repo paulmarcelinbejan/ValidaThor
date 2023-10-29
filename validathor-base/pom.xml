@@ -7,12 +7,12 @@
     <parent>
         <groupId>io.github.paulmarcelinbejan.toolbox</groupId>
         <artifactId>validathor</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
     </parent>
 
     <artifactId>validathor-base</artifactId>
     <name>Validathor Base</name>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
     <packaging>jar</packaging>
 	
 	<dependencies>
