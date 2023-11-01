@@ -45,10 +45,14 @@ public class ValidathorUtils {
 	}
 	
 	/**
-	 * getObject
+	 * getFields
 	 */
 	public static List<Field> getFields(final Class<?> clazz) {
-		return new ArrayList<>(Arrays.asList(clazz.getDeclaredFields()));
+        List<Field> fields = new ArrayList<>();
+        for (Class<?> c = clazz; c != null; c = c.getSuperclass()) {
+            fields.addAll(Arrays.asList(c.getDeclaredFields()));
+        }
+        return fields;
 	}
 	
 	/**
