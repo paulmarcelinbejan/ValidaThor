@@ -44,10 +44,11 @@ public class ValidathorTestUtils {
 		
 		ObjectValidathorImpl objectValidathorImpl = new ObjectValidathorImpl();
 		
-		ValidathorRegistry registry = new ValidathorRegistry(skipBeforeValidationProcessor, skipAfterValidationProcessor, objectValidathorImpl, true);
+		ValidathorRegistry registry = new ValidathorRegistry(skipBeforeValidationProcessor, skipAfterValidationProcessor, objectValidathorImpl);
 		
 		registry.registerValidathors(validathors);
 		registry.registerValidathorsParametrizedType(validathorsParametrizedType);
+		registry.setUseCompatibleValidathorIfSpecificNotPresent(true);
 		
 		validateObjectBFS(root, registry);
 		

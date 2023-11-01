@@ -2,6 +2,7 @@ package io.github.paulmarcelinbejan.toolbox.validathor.registry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.AbstractObjectValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
@@ -9,14 +10,13 @@ import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
  * The ValidathorRegistry contains all the necessary configuration
  */
 @Getter
-@RequiredArgsConstructor
 public class ValidathorRegistry {
 
 	/**
@@ -37,19 +37,20 @@ public class ValidathorRegistry {
 	/**
 	 * Validathors to be used in order to validate specific classes
 	 */
-	private List<Validathor<?>> validathors = new ArrayList<>();
+	private final List<Validathor<?>> validathors;
 	
 	/**
 	 *  Validathors to be used in order to validate specific classes of Parametrized Type
 	 */
-	private List<ValidathorParametrizedType<?>> validathorsParametrizedType = new ArrayList<>();
+	private final List<ValidathorParametrizedType<?>> validathorsParametrizedType;
 	
 	/**
 	 * If a class doesn't have a match with a Validathor, but there is one compatible, it is possible to use it setting this parameter to true. <br>
 	 * Example 1: There is a field of type ArrayList<>, and a Validathor for this class it was not provided, instead, it is present a Validathor for Collection, so ArrayList is assignable from Collection, the Validathor for Collection can be used to validate the ArrayList.
 	 * Example 2: There is a field of type Dog, and a Validathor for this class it was not provided, instead, it is present a Validathor for Animal which is the parent class of Dog, the Validathor for Animal can be used to validate the Dog.
 	 */
-	private final boolean useCompatibleValidathorIfSpecificNotPresent;
+	@Setter
+	private boolean useCompatibleValidathorIfSpecificNotPresent;
 	
 	/**
 	 * registerValidathor
@@ -158,27 +159,9 @@ public class ValidathorRegistry {
 
 		@Override
 		public ValidathorRegistry build() {
-			if(super.skipBeforeValidationProcessor == null) {
-				super.skipBeforeValidationProcessor = new SkipBeforeValidationProcessor();
-			}
-			if(super.skipAfterValidationProcessor == null) {
-				super.skipAfterValidationProcessor = new SkipAfterValidationProcessor();
-			}
-			if(super.defaultValidathor == null) {
-				throw new RuntimeException("ObjectValidathor not registered!");
-			}
 			return new ValidathorRegistry(this);
 		}
 		
-	}
-
-	/**
-	 * Constructor with Builder
-	 */
-	protected ValidathorRegistry(final ValidathorRegistry.ValidathorRegistryBuilder<?, ?> b) {
-		this(b.skipBeforeValidationProcessor, b.skipAfterValidationProcessor, b.defaultValidathor, b.useCompatibleValidathorIfSpecificNotPresent);
-		this.validathors = b.validathors;
-		this.validathorsParametrizedType = b.validathorsParametrizedType;
 	}
 
 	/**
@@ -186,6 +169,91 @@ public class ValidathorRegistry {
 	 */
 	public static ValidathorRegistry.ValidathorRegistryBuilder<?, ?> builder() {
 		return new ValidathorRegistry.ValidathorRegistryBuilderImpl();
+	}
+	
+	/**
+	 * Constructor with Builder
+	 */
+	protected ValidathorRegistry(final ValidathorRegistry.ValidathorRegistryBuilder<?, ?> b) {
+		this(b.skipBeforeValidationProcessor, b.skipAfterValidationProcessor, b.defaultValidathor, b.validathors, b.validathorsParametrizedType, b.useCompatibleValidathorIfSpecificNotPresent);
+	}
+
+	/**
+	 * RequiredArgsConstructor
+	 */
+	public ValidathorRegistry(
+			SkipBeforeValidationProcessor skipBeforeValidationProcessor,
+			SkipAfterValidationProcessor skipAfterValidationProcessor, 
+			AbstractObjectValidathor defaultValidathor) {
+		this(skipBeforeValidationProcessor, skipAfterValidationProcessor, defaultValidathor, new ArrayList<>(), new ArrayList<>(), false);
+	}
+	
+	/**
+	 * AllArgsConstructor
+	 */
+	public ValidathorRegistry(
+			SkipBeforeValidationProcessor skipBeforeValidationProcessor,
+			SkipAfterValidationProcessor skipAfterValidationProcessor, 
+			AbstractObjectValidathor defaultValidathor,
+			List<Validathor<?>> validathors, 
+			List<ValidathorParametrizedType<?>> validathorsParametrizedType,
+			boolean useCompatibleValidathorIfSpecificNotPresent) {
+		this.skipBeforeValidationProcessor = skipBeforeValidationProcessor;
+		this.skipAfterValidationProcessor = skipAfterValidationProcessor;
+		this.defaultValidathor = defaultValidathor;
+		this.validathors = validathors;
+		this.validathorsParametrizedType = validathorsParametrizedType;
+		this.useCompatibleValidathorIfSpecificNotPresent = useCompatibleValidathorIfSpecificNotPresent;
+		validateValidathorRegistry(this);
+	}
+	
+	private static void validateValidathorRegistry(ValidathorRegistry validathorRegistry) {
+		
+		//validate skip processors
+		
+		if(validathorRegistry.getSkipBeforeValidationProcessor() == null) {
+			throw new RuntimeException("skipBeforeValidationProcessor can not be null!");
+		}
+		if(validathorRegistry.getSkipAfterValidationProcessor() == null) {
+			throw new RuntimeException("skipAfterValidationProcessor can not be null!");
+		}
+		
+		//validate default validathor
+		
+		if(validathorRegistry.getDefaultValidathor() == null) {
+			throw new RuntimeException("defaultValidathor can not be null!");
+		}
+		
+		//validate validathors
+		
+		if(validathorRegistry.getValidathors() == null) {
+			throw new RuntimeException("validathors can not be null!");
+		}
+		boolean validathorsContainsMoreValidathorsForSameClass = containsMoreValidathorsForSameClass(validathorRegistry.getValidathors());
+		if(validathorsContainsMoreValidathorsForSameClass) {
+			throw new RuntimeException("validathors cannot contains more than one validathor for the same class!");
+		}
+		
+		//validate validathors parametrized type
+		
+		if(validathorRegistry.getValidathorsParametrizedType() == null) {
+			throw new RuntimeException("validathorsParametrizedType can not be null!");
+		}
+		boolean validathorsParametrizedTypeContainsMoreValidathorsForSameClass = containsMoreValidathorsForSameClass(validathorRegistry.getValidathorsParametrizedType());
+		if(validathorsParametrizedTypeContainsMoreValidathorsForSameClass) {
+			throw new RuntimeException("validathorsParametrizedType cannot contains more than one validathor for the same class!");
+		}
+		
+	}
+	
+	private static <V extends Validathor<?>> boolean containsMoreValidathorsForSameClass(List<V> validathors) {
+		boolean containsMoreValidathorsForSameClass = validathors
+				.stream()
+				.collect(Collectors.groupingBy(Validathor::getTypeParameterClass))
+				.values()
+				.stream()
+				.anyMatch(v -> v.size() > 1);
+		return containsMoreValidathorsForSameClass;
 	}
 	
 }

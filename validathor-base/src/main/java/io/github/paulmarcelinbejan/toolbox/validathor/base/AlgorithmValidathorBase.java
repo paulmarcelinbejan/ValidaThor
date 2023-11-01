@@ -2,13 +2,11 @@ package io.github.paulmarcelinbejan.toolbox.validathor.base;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
 import io.github.paulmarcelinbejan.toolbox.validathor.registry.ValidathorRegistry;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
  * AlgorithmValidathorBase for different Algorithm (BFS, DFS)
  */
-@Getter
 @RequiredArgsConstructor
 public abstract class AlgorithmValidathorBase {
 	

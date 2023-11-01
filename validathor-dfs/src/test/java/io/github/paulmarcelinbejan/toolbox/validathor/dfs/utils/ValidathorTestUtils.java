@@ -23,14 +23,15 @@ public class ValidathorTestUtils {
 	 */
 	public static void validateObjectDFS(@NonNull Object root, List<Validathor<?>> validathors, List<ValidathorParametrizedType<?>> validathorsParametrizedType) throws ValidathorException {
 		
-		SkipBeforeValidationProcessor skipBeforeValidationProcessor = new SkipBeforeValidationProcessor();
-		SkipAfterValidationProcessor skipAfterValidationProcessor = new SkipAfterValidationProcessor();
-		ObjectValidathorImpl objectValidathorImpl = new ObjectValidathorImpl();
-		
-		ValidathorRegistry registry = new ValidathorRegistry(skipBeforeValidationProcessor, skipAfterValidationProcessor, objectValidathorImpl, true);
-		
-		registry.registerValidathors(validathors);
-		registry.registerValidathorsParametrizedType(validathorsParametrizedType);
+		ValidathorRegistry registry = ValidathorRegistry
+				.builder()
+				.registerSkipBeforeValidationProcessor(new SkipBeforeValidationProcessor())
+				.registerSkipAfterValidationProcessor(new SkipAfterValidationProcessor())
+				.registerObjectValidathor(new ObjectValidathorImpl())
+				.registerValidathors(validathors)
+				.registerValidathorsParametrizedType(validathorsParametrizedType)
+				.useCompatibleValidathorIfSpecificNotPresent(true)
+				.build();
 		
 		validateObjectDFS(root, registry);
 		
@@ -44,10 +45,11 @@ public class ValidathorTestUtils {
 		
 		ObjectValidathorImpl objectValidathorImpl = new ObjectValidathorImpl();
 		
-		ValidathorRegistry registry = new ValidathorRegistry(skipBeforeValidationProcessor, skipAfterValidationProcessor, objectValidathorImpl, true);
+		ValidathorRegistry registry = new ValidathorRegistry(skipBeforeValidationProcessor, skipAfterValidationProcessor, objectValidathorImpl);
 		
 		registry.registerValidathors(validathors);
 		registry.registerValidathorsParametrizedType(validathorsParametrizedType);
+		registry.setUseCompatibleValidathorIfSpecificNotPresent(true);
 		
 		validateObjectDFS(root, registry);
 		
