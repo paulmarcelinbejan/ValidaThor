@@ -16,7 +16,7 @@ import io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1.level2
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.utils.ObjectValorizator;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.utils.ValidathorTestUtils;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
-import io.github.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathorImpl;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.config.SkipAfterValidationConfig;
@@ -35,7 +35,7 @@ class SkipAfterValidationProcessorTest {
 		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
 		
 		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParametrizedType));
-		assertEquals(ObjectValidathorImpl.class, eBFS.getCausedBy().getClass());
+		assertEquals(ObjectValidathor.class, eBFS.getCausedBy().getClass());
 		
 		ferrari.getManufacturer().setHeadquarters(new Headquarters(null));
 		
@@ -54,7 +54,7 @@ class SkipAfterValidationProcessorTest {
 		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
 		
 		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParametrizedType));
-		assertEquals(ObjectValidathorImpl.class, eBFS.getCausedBy().getClass());
+		assertEquals(ObjectValidathor.class, eBFS.getCausedBy().getClass());
 		
 		ferrari.getManufacturer().setHeadquarters(new Headquarters(null));
 		

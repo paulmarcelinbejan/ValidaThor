@@ -6,7 +6,7 @@ import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.ValidathorDFS;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
-import io.github.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathorImpl;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import io.github.paulmarcelinbejan.toolbox.validathor.registry.ValidathorRegistry;
@@ -27,7 +27,7 @@ public class ValidathorTestUtils {
 				.builder()
 				.registerSkipBeforeValidationProcessor(new SkipBeforeValidationProcessor())
 				.registerSkipAfterValidationProcessor(new SkipAfterValidationProcessor())
-				.registerObjectValidathor(new ObjectValidathorImpl())
+				.registerObjectValidathor(new ObjectValidathor())
 				.registerValidathors(validathors)
 				.registerValidathorsParametrizedType(validathorsParametrizedType)
 				.useCompatibleValidathorIfSpecificNotPresent(true)
@@ -43,9 +43,9 @@ public class ValidathorTestUtils {
 	 */
 	public static void validateObjectDFS(@NonNull Object root, SkipBeforeValidationProcessor skipBeforeValidationProcessor, SkipAfterValidationProcessor skipAfterValidationProcessor, List<Validathor<?>> validathors, List<ValidathorParametrizedType<?>> validathorsParametrizedType) throws ValidathorException {
 		
-		ObjectValidathorImpl objectValidathorImpl = new ObjectValidathorImpl();
+		ObjectValidathor objectValidathor = new ObjectValidathor();
 		
-		ValidathorRegistry registry = new ValidathorRegistry(skipBeforeValidationProcessor, skipAfterValidationProcessor, objectValidathorImpl);
+		ValidathorRegistry registry = new ValidathorRegistry(skipBeforeValidationProcessor, skipAfterValidationProcessor, objectValidathor);
 		
 		registry.registerValidathors(validathors);
 		registry.registerValidathorsParametrizedType(validathorsParametrizedType);

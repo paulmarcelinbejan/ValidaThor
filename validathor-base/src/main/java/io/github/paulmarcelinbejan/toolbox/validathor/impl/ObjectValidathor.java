@@ -7,13 +7,13 @@ import io.github.paulmarcelinbejan.toolbox.validathor.AbstractObjectValidathor;
  * object to validate is valid if not null
  * validate inner fields
  */
-public class ObjectValidathorImpl extends AbstractObjectValidathor {
+public class ObjectValidathor extends AbstractObjectValidathor {
 
-	public ObjectValidathorImpl() {
+	public ObjectValidathor() {
 		super(true);
 	}
 	
-	public ObjectValidathorImpl(boolean validateInnerFields) {
+	public ObjectValidathor(boolean validateInnerFields) {
 		super(validateInnerFields);
 	}
 

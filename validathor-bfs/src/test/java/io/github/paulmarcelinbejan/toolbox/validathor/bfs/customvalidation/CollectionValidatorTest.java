@@ -20,7 +20,7 @@ import io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.Car;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.utils.ObjectValorizator;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.utils.ValidathorTestUtils;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
-import io.github.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathorImpl;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathor;
 
 class CollectionValidatorTest {
 	
@@ -55,7 +55,7 @@ class CollectionValidatorTest {
 		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
 		
 		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, validathors, validathorsParametrizedType));
-		assertEquals(ObjectValidathorImpl.class, eBFS.getCausedBy().getClass());
+		assertEquals(ObjectValidathor.class, eBFS.getCausedBy().getClass());
 	}
 	
 	@Test

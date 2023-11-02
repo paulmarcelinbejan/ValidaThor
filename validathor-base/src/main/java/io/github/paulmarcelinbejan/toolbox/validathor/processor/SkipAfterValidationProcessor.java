@@ -1,5 +1,6 @@
 package io.github.paulmarcelinbejan.toolbox.validathor.processor;
 
+import java.util.Set;
 import java.util.function.Predicate;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.enums.PackagesEnum;
@@ -17,6 +18,13 @@ public class SkipAfterValidationProcessor extends SkipProcessor {
 	
 	public SkipAfterValidationProcessor() {
 		super();
+		skipPackages.add(PackagesEnum.JAVA.value);
+	}
+	
+	public SkipAfterValidationProcessor(
+			Set<Class<?>> afterValidationSkipClasses,
+			Set<String> afterValidationSkipPackages) {
+		super(afterValidationSkipClasses, afterValidationSkipPackages);
 		skipPackages.add(PackagesEnum.JAVA.value);
 	}
 	
