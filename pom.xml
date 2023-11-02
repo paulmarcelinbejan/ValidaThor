@@ -19,7 +19,7 @@
 
 	<groupId>io.github.paulmarcelinbejan.toolbox</groupId>
 	<artifactId>validathor</artifactId>
-	<version>3.0.1</version>
+	<version>3.1.0</version>
     <packaging>pom</packaging>
 
 	<licenses>
