@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import io.github.paulmarcelinbejan.toolbox.validathor.CollectionValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.StringValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
+import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.entities.Car;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.utils.ObjectValorizator;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.utils.ValidathorTestUtils;
@@ -29,9 +29,9 @@ class CollectionValidatorTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.setOwners(null);
 		
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true));
 		
-		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, Collections.emptyList(), validathorsParametrizedType));
+		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, Collections.emptyList(), validathorsParameterizedType));
 		assertEquals(CollectionValidathor.class, eDFS.getCausedBy().getClass());
 	}
 	
@@ -40,9 +40,9 @@ class CollectionValidatorTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.setOwners(new ArrayList<>());
 		
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true));
 		
-		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, Collections.emptyList(), validathorsParametrizedType));
+		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, Collections.emptyList(), validathorsParameterizedType));
 		assertEquals(CollectionValidathor.class, eDFS.getCausedBy().getClass());
 	}
 	
@@ -52,9 +52,9 @@ class CollectionValidatorTest {
 		ferrari.getOwners().get(1).setAge(null);
 		
 		List<Validathor<?>> validathors = List.of(new StringValidathor());
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true));
 		
-		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParametrizedType));
+		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
 		assertEquals(ObjectValidathor.class, eDFS.getCausedBy().getClass());
 	}
 	
@@ -64,16 +64,16 @@ class CollectionValidatorTest {
 		ferrari.setOwners(null);
 		
 		List<Validathor<?>> validathors = List.of(new StringValidathor());
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionCanBeNullButNotEmptyValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionCanBeNullButNotEmptyValidathor(true));
 
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
 	}
 	
 	@SuppressWarnings("rawtypes")
-	private static class CollectionCanBeNullButNotEmptyValidathor extends ValidathorParametrizedType<Collection> {
+	private static class CollectionCanBeNullButNotEmptyValidathor extends ValidathorParameterizedType<Collection> {
 
-		public CollectionCanBeNullButNotEmptyValidathor(boolean toValidateParametrizedTypeElements) {
-			super(Collection.class, toValidateParametrizedTypeElements);
+		public CollectionCanBeNullButNotEmptyValidathor(boolean toValidateParameterizedTypeElements) {
+			super(Collection.class, toValidateParameterizedTypeElements);
 		}
 
 		@Override
@@ -85,7 +85,7 @@ class CollectionValidatorTest {
 		}
 
 		@Override
-		public Function<Collection, Collection<?>> parametrizedTypeElementsToValidate() {
+		public Function<Collection, Collection<?>> parameterizedTypeElementsToValidate() {
 			return (collection) -> collection;
 		}
 
@@ -97,16 +97,16 @@ class CollectionValidatorTest {
 		ferrari.setOwners(new ArrayList<>());
 		
 		List<Validathor<?>> validathors = List.of(new StringValidathor());
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionCanNotBeNullButCanBeEmptyValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionCanNotBeNullButCanBeEmptyValidathor(true));
 
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
 	}
 	
 	@SuppressWarnings("rawtypes")
-	private static class CollectionCanNotBeNullButCanBeEmptyValidathor extends ValidathorParametrizedType<Collection> {
+	private static class CollectionCanNotBeNullButCanBeEmptyValidathor extends ValidathorParameterizedType<Collection> {
 
-		public CollectionCanNotBeNullButCanBeEmptyValidathor(boolean toValidateParametrizedTypeElements) {
-			super(Collection.class, toValidateParametrizedTypeElements);
+		public CollectionCanNotBeNullButCanBeEmptyValidathor(boolean toValidateParameterizedTypeElements) {
+			super(Collection.class, toValidateParameterizedTypeElements);
 		}
 
 		@Override
@@ -115,7 +115,7 @@ class CollectionValidatorTest {
 		}
 
 		@Override
-		public Function<Collection, Collection<?>> parametrizedTypeElementsToValidate() {
+		public Function<Collection, Collection<?>> parameterizedTypeElementsToValidate() {
 			return (collection) -> collection;
 		}
 
@@ -128,9 +128,9 @@ class CollectionValidatorTest {
 		ferrari.getOwners().add(null);
 		
 		List<Validathor<?>> validathors = List.of(new ShortNotNullValidathor());
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionCanNotBeNullButCanBeEmptyValidathor(false));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionCanNotBeNullButCanBeEmptyValidathor(false));
 
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
 	}
 	
 	private static class ShortNotNullValidathor extends Validathor<Short> {
@@ -152,26 +152,26 @@ class CollectionValidatorTest {
 		ferrari.getOwners().get(0).setAge(null);
 		
 		List<Validathor<?>> validathors = List.of(new ShortNotNullValidathor());
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionCanBeNullAndCanBeEmptyValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionCanBeNullAndCanBeEmptyValidathor(true));
 
-		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParametrizedType));
+		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
 		assertEquals(ShortNotNullValidathor.class, eDFS.getCausedBy().getClass());
 		
 		ferrari.setOwners(Collections.emptyList());
 		
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
 		
 		ferrari.setOwners(null);
 		
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
 		
 	}
 	
 	@SuppressWarnings("rawtypes")
-	private static class CollectionCanBeNullAndCanBeEmptyValidathor extends ValidathorParametrizedType<Collection> {
+	private static class CollectionCanBeNullAndCanBeEmptyValidathor extends ValidathorParameterizedType<Collection> {
 
-		public CollectionCanBeNullAndCanBeEmptyValidathor(boolean toValidateParametrizedTypeElements) {
-			super(Collection.class, toValidateParametrizedTypeElements);
+		public CollectionCanBeNullAndCanBeEmptyValidathor(boolean toValidateParameterizedTypeElements) {
+			super(Collection.class, toValidateParameterizedTypeElements);
 		}
 
 		@Override
@@ -180,7 +180,7 @@ class CollectionValidatorTest {
 		}
 
 		@Override
-		public Function<Collection, Collection<?>> parametrizedTypeElementsToValidate() {
+		public Function<Collection, Collection<?>> parameterizedTypeElementsToValidate() {
 			return (collection) -> collection;
 		}
 
@@ -192,9 +192,9 @@ class CollectionValidatorTest {
 		ferrari.setOwners(new ArrayList<>());
 		
 		List<Validathor<?>> validathors = List.of(new ShortNotNullValidathor());
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionCanBeNullButNotEmptyValidathor(false));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionCanBeNullButNotEmptyValidathor(false));
 
-		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParametrizedType));
+		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
 		assertEquals(CollectionCanBeNullButNotEmptyValidathor.class, eDFS.getCausedBy().getClass());
 	}
 	
@@ -204,9 +204,9 @@ class CollectionValidatorTest {
 		ferrari.getOwners().get(1).setSurname("");
 		
 		List<Validathor<?>> validathors = List.of(new StringValidathor());
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionCanBeNullAndCanBeEmptyValidathor(false));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionCanBeNullAndCanBeEmptyValidathor(false));
 
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
 	}
 	
 	@Test
@@ -215,9 +215,9 @@ class CollectionValidatorTest {
 		ferrari.getOwners().get(0).setAge(null);
 		
 		List<Validathor<?>> validathors = List.of(new StringValidathor());
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionCanNotBeNullButCanBeEmptyValidathor(false));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionCanNotBeNullButCanBeEmptyValidathor(false));
 
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
 	}
 	
 }

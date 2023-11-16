@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.CollectionValidathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
+import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.Car;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1.Manufacturer;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1.level2.Headquarters;
@@ -31,9 +31,9 @@ class SkipBeforeValidationProcessorTest {
 		skipBeforeValidationConfig.getBeforeValidationSkipClasses().add(Headquarters.class);
 		SkipBeforeValidationProcessor skipBeforeValidationProcessor = new SkipBeforeValidationProcessor(skipBeforeValidationConfig);
 		
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true));
 		
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectBFS(ferrari, skipBeforeValidationProcessor, new SkipAfterValidationProcessor(), Collections.emptyList(), validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectBFS(ferrari, skipBeforeValidationProcessor, new SkipAfterValidationProcessor(), Collections.emptyList(), validathorsParameterizedType));
 	}
 	
 	@Test
@@ -45,9 +45,9 @@ class SkipBeforeValidationProcessorTest {
 		skipBeforeValidationConfig.getBeforeValidationSkipPackages().add("io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1.level2");
 		SkipBeforeValidationProcessor skipBeforeValidationProcessor = new SkipBeforeValidationProcessor(skipBeforeValidationConfig);
 		
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true));
 		
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectBFS(ferrari, skipBeforeValidationProcessor, new SkipAfterValidationProcessor(), Collections.emptyList(), validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectBFS(ferrari, skipBeforeValidationProcessor, new SkipAfterValidationProcessor(), Collections.emptyList(), validathorsParameterizedType));
 	}
 	
 	@Test
@@ -62,9 +62,9 @@ class SkipBeforeValidationProcessorTest {
 		skipBeforeValidationConfig.getBeforeValidationSkipPackages().add("io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1");
 		SkipBeforeValidationProcessor skipBeforeValidationProcessor = new SkipBeforeValidationProcessor(skipBeforeValidationConfig);
 		
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true));
 		
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectBFS(something, skipBeforeValidationProcessor, new SkipAfterValidationProcessor(), Collections.emptyList(), validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectBFS(something, skipBeforeValidationProcessor, new SkipAfterValidationProcessor(), Collections.emptyList(), validathorsParameterizedType));
 	}
 	
 	@Data

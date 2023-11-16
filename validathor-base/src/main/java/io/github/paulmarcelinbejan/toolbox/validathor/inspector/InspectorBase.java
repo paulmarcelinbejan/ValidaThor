@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
+import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.registry.ValidathorRegistry;
 
 /**
@@ -16,7 +16,7 @@ public abstract class InspectorBase {
 	protected InspectorBase(ValidathorRegistry registry) {
 		this.registry = registry;
 		mapValidathors = registry.getValidathors().stream().collect(Collectors.toMap(Validathor::getTypeParameterClass, validathor -> validathor));
-		mapValidathorsParametrizedType = registry.getValidathorsParametrizedType().stream().collect(Collectors.toMap(ValidathorParametrizedType::getTypeParameterClass, validathor -> validathor));
+		mapValidathorsParameterizedType = registry.getValidathorsParameterizedType().stream().collect(Collectors.toMap(ValidathorParameterizedType::getTypeParameterClass, validathor -> validathor));
 	}
 
 	/**
@@ -30,9 +30,9 @@ public abstract class InspectorBase {
 	protected final Map<Class<?>, Validathor<?>> mapValidathors;
 	
 	/**
-	 * mapValidathorsParametrizedType
+	 * mapValidathorsParameterizedType
 	 */
-	protected final Map<Class<?>, ValidathorParametrizedType<?>> mapValidathorsParametrizedType;
+	protected final Map<Class<?>, ValidathorParameterizedType<?>> mapValidathorsParameterizedType;
 	
 	/**
 	 * cacheMapCompatibleValidathors
@@ -40,8 +40,8 @@ public abstract class InspectorBase {
 	protected Map<Class<?>, Validathor<?>> cacheMapCompatibleValidathors = new HashMap<>();
 	
 	/**
-	 * cacheMapCompatibleValidathorsParametrizedType
+	 * cacheMapCompatibleValidathorsParameterizedType
 	 */
-	protected Map<Class<?>, ValidathorParametrizedType<?>> cacheMapCompatibleValidathorsParametrizedType = new HashMap<>();
+	protected Map<Class<?>, ValidathorParameterizedType<?>> cacheMapCompatibleValidathorsParameterizedType = new HashMap<>();
 	
 }

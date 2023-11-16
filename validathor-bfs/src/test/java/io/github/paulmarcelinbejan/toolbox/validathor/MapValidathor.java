@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 @SuppressWarnings("rawtypes")
-public class MapValidathor extends ValidathorParametrizedType<Map> {
+public class MapValidathor extends ValidathorParameterizedType<Map> {
 
-	public MapValidathor(boolean toValidateParametrizedTypeElements) {
-		super(Map.class, toValidateParametrizedTypeElements);
+	public MapValidathor(boolean toValidateParameterizedTypeElements) {
+		super(Map.class, toValidateParameterizedTypeElements);
 	}
 
 	@Override
@@ -17,7 +17,7 @@ public class MapValidathor extends ValidathorParametrizedType<Map> {
 	}
 
 	@Override
-	public Function<Map, Collection<?>> parametrizedTypeElementsToValidate() {
+	public Function<Map, Collection<?>> parameterizedTypeElementsToValidate() {
 		return (map) -> map.values();
 	}
 

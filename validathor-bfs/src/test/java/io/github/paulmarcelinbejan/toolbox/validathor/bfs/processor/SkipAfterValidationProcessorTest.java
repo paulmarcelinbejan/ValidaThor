@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.CollectionValidathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
+import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.Car;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1.level2.Headquarters;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.utils.ObjectValorizator;
@@ -32,14 +32,14 @@ class SkipAfterValidationProcessorTest {
 		skipAfterValidationConfig.getAfterValidationSkipClasses().add(Headquarters.class);
 		SkipAfterValidationProcessor skipAfterValidationProcessor = new SkipAfterValidationProcessor(skipAfterValidationConfig);
 		
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true));
 		
-		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParametrizedType));
+		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParameterizedType));
 		assertEquals(ObjectValidathor.class, eBFS.getCausedBy().getClass());
 		
 		ferrari.getManufacturer().setHeadquarters(new Headquarters(null));
 		
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectBFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectBFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParameterizedType));
 	}
 	
 	@Test
@@ -51,14 +51,14 @@ class SkipAfterValidationProcessorTest {
 		skipAfterValidationConfig.getAfterValidationSkipPackages().add("io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.level1.level2");
 		SkipAfterValidationProcessor skipAfterValidationProcessor = new SkipAfterValidationProcessor(skipAfterValidationConfig);
 		
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true));
 		
-		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParametrizedType));
+		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParameterizedType));
 		assertEquals(ObjectValidathor.class, eBFS.getCausedBy().getClass());
 		
 		ferrari.getManufacturer().setHeadquarters(new Headquarters(null));
 		
-		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectBFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParametrizedType));
+		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectBFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParameterizedType));
 	}
 	
 }

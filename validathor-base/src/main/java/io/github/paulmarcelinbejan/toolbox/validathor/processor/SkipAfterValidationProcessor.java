@@ -11,8 +11,8 @@ import io.github.paulmarcelinbejan.toolbox.validathor.processor.config.SkipAfter
  * 
  * The skip is intended to avoid validation of inner fields.
  * 
- * For Parametrized Type class, it will skip fields but non necessary the validation of the elements.
- * Validation of elements rely on the property toValidateParametrizedTypeElements of the specific ValidathorParametrizedType.
+ * For Parameterized Type class, it will skip fields but non necessary the validation of the elements.
+ * Validation of elements rely on the property toValidateParameterizedTypeElements of the specific ValidathorParameterizedType.
  */
 public class SkipAfterValidationProcessor extends SkipProcessor {
 	

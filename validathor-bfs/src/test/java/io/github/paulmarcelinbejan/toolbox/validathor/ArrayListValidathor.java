@@ -5,10 +5,10 @@ import java.util.Collection;
 import java.util.function.Function;
 
 @SuppressWarnings("rawtypes")
-public class ArrayListValidathor extends ValidathorParametrizedType<ArrayList> {
+public class ArrayListValidathor extends ValidathorParameterizedType<ArrayList> {
 
-	public ArrayListValidathor(boolean toValidateParametrizedTypeElements) {
-		super(ArrayList.class, toValidateParametrizedTypeElements);
+	public ArrayListValidathor(boolean toValidateParameterizedTypeElements) {
+		super(ArrayList.class, toValidateParameterizedTypeElements);
 	}
 
 	@Override
@@ -17,7 +17,7 @@ public class ArrayListValidathor extends ValidathorParametrizedType<ArrayList> {
 	}
 
 	@Override
-	public Function<ArrayList, Collection<?>> parametrizedTypeElementsToValidate() {
+	public Function<ArrayList, Collection<?>> parameterizedTypeElementsToValidate() {
 		return (arrayList) -> arrayList;
 	}
 

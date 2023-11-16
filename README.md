@@ -43,9 +43,9 @@ public class StringValidathor extends Validathor<String> {
 }
 ```
 
-2. Validathor for parametrized type, will extends io.github.paulmarcelinbejan.toolbox.validathor.<b>ValidathorParametrizedType</b>
+2. Validathor for parameterized type, will extends io.github.paulmarcelinbejan.toolbox.validathor.<b>ValidathorParameterizedType</b>
 
-ValidathorParametrizedType extends Validathor
+ValidathorParameterizedType extends Validathor
 
 Example:
 ```java
@@ -54,12 +54,12 @@ import java.util.Map;
 import java.util.function.Function;
 
 @SuppressWarnings("rawtypes")
-public class MapValidathor extends ValidathorParametrizedType<Map> {
+public class MapValidathor extends ValidathorParameterizedType<Map> {
 
 	// The constructor must call the super constructor passing the class of the type we want to validate 
 	// and a boolean indicating if elements must be validated
-	public MapValidathor(boolean toValidateParametrizedTypeElements) {
-		super(Map.class, toValidateParametrizedTypeElements);
+	public MapValidathor(boolean toValidateParameterizedTypeElements) {
+		super(Map.class, toValidateParameterizedTypeElements);
 	}
 
 	// The isValid method must be implemented choosing how we will want to validate that type of object.
@@ -68,10 +68,10 @@ public class MapValidathor extends ValidathorParametrizedType<Map> {
 		return toValidate != null && !toValidate.isEmpty();
 	}
 
-	// parametrizedTypeElementsToValidate return a Function that will return a Collection of elements to be validated
+	// parameterizedTypeElementsToValidate return a Function that will return a Collection of elements to be validated
 	// for Map we can decide for example if we want to validate only keys, only values, or both.
 	@Override
-	public Function<Map, Collection<?>> parametrizedTypeElementsToValidate() {
+	public Function<Map, Collection<?>> parameterizedTypeElementsToValidate() {
 		return (map) -> map.values();
 	}
 
@@ -120,8 +120,8 @@ ValidathorRegistry validathorRegistry = ValidathorRegistry.builder()
 	.registerObjectValidathor(new ObjectValidathor())
 	.registerValidathor(new StringValidathor()) // register single validathor, it can be called multiple times
 	.registerValidathors(List.of(new StringValidathor(), new PersonValidathor())) // register multiple validathors 
-	.registerValidathorParametrizedType(new ListValidathor()) // register single validathor parametrized type, it can be called multiple times
-	.registerValidathorsParametrizedType(List.of(new ListValidathor(), new MapValidathor())) // register multiple validathors of parametrized type
+	.registerValidathorParameterizedType(new ListValidathor()) // register single validathor parameterized type, it can be called multiple times
+	.registerValidathorsParameterizedType(List.of(new ListValidathor(), new MapValidathor())) // register multiple validathors of parameterized type
 	.useCompatibleValidathorIfSpecificNotPresent(false) // if true, an object can be validated by a compatible Validathor if the specific is not registered.
 	.registerSkipBeforeValidationProcessor(skipBeforeValidationProcessor)
 	.registerSkipAfterValidationProcessor(skipAfterValidationProcessor)
@@ -129,7 +129,7 @@ ValidathorRegistry validathorRegistry = ValidathorRegistry.builder()
 ```
 
 Let me give you an example of why is useful the config useCompatibleValidathorIfSpecificNotPresent
-Let's say you have a field of type ArrayList, and you haven't registered a ValidathorParametrizedType for that type, but you have registered a ValidathorParametrizedType for a compatible class, like Collection, if useCompatibleValidathorIfSpecificNotPresent is set to true, the CollectionValidathor can be used to validate the ArrayList
+Let's say you have a field of type ArrayList, and you haven't registered a ValidathorParameterizedType for that type, but you have registered a ValidathorParameterizedType for a compatible class, like Collection, if useCompatibleValidathorIfSpecificNotPresent is set to true, the CollectionValidathor can be used to validate the ArrayList
 
 
 Is is also possible to configure the two SkipProcessor:

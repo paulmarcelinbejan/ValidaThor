@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.AbstractObjectValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
+import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import lombok.Getter;
@@ -40,9 +40,9 @@ public class ValidathorRegistry {
 	private final List<Validathor<?>> validathors;
 	
 	/**
-	 *  Validathors to be used in order to validate specific classes of Parametrized Type
+	 *  Validathors to be used in order to validate specific classes of Parameterized Type
 	 */
-	private final List<ValidathorParametrizedType<?>> validathorsParametrizedType;
+	private final List<ValidathorParameterizedType<?>> validathorsParameterizedType;
 	
 	/**
 	 * If a class doesn't have a match with a Validathor, but there is one compatible, it is possible to use it setting this parameter to true. <br>
@@ -67,17 +67,17 @@ public class ValidathorRegistry {
 	}
 	
 	/**
-	 * registerValidathorParametrizedType
+	 * registerValidathorParameterizedType
 	 */
-	public void registerValidathorParametrizedType(ValidathorParametrizedType<?> validathorParametrizedType) {
-		validathorsParametrizedType.add(validathorParametrizedType);
+	public void registerValidathorParameterizedType(ValidathorParameterizedType<?> validathorParameterizedType) {
+		validathorsParameterizedType.add(validathorParameterizedType);
 	}
 	
 	/**
-	 * registerValidathorsParametrizedType
+	 * registerValidathorsParameterizedType
 	 */
-	public void registerValidathorsParametrizedType(List<ValidathorParametrizedType<?>> validathorsParametrizedType) {
-		this.validathorsParametrizedType.addAll(validathorsParametrizedType);
+	public void registerValidathorsParameterizedType(List<ValidathorParameterizedType<?>> validathorsParameterizedType) {
+		this.validathorsParameterizedType.addAll(validathorsParameterizedType);
 	}
 	
 	// BUILDER WITH FLUENT API
@@ -96,7 +96,7 @@ public class ValidathorRegistry {
 
 		private List<Validathor<?>> validathors = new ArrayList<>();
 		
-		private List<ValidathorParametrizedType<?>> validathorsParametrizedType = new ArrayList<>();
+		private List<ValidathorParameterizedType<?>> validathorsParameterizedType = new ArrayList<>();
 
 		private boolean useCompatibleValidathorIfSpecificNotPresent;
 		
@@ -129,13 +129,13 @@ public class ValidathorRegistry {
 			return self();
 		}
 
-		public B registerValidathorParametrizedType(final ValidathorParametrizedType<?> validathorParametrizedType) {
-			this.validathorsParametrizedType.add(validathorParametrizedType);
+		public B registerValidathorParameterizedType(final ValidathorParameterizedType<?> validathorParameterizedType) {
+			this.validathorsParameterizedType.add(validathorParameterizedType);
 			return self();
 		}
 		
-		public B registerValidathorsParametrizedType(final List<ValidathorParametrizedType<?>> validathorsParametrizedType) {
-			this.validathorsParametrizedType.addAll(validathorsParametrizedType);
+		public B registerValidathorsParameterizedType(final List<ValidathorParameterizedType<?>> validathorsParameterizedType) {
+			this.validathorsParameterizedType.addAll(validathorsParameterizedType);
 			return self();
 		}
 		
@@ -175,7 +175,7 @@ public class ValidathorRegistry {
 	 * Constructor with Builder
 	 */
 	protected ValidathorRegistry(final ValidathorRegistry.ValidathorRegistryBuilder<?, ?> b) {
-		this(b.skipBeforeValidationProcessor, b.skipAfterValidationProcessor, b.defaultValidathor, b.validathors, b.validathorsParametrizedType, b.useCompatibleValidathorIfSpecificNotPresent);
+		this(b.skipBeforeValidationProcessor, b.skipAfterValidationProcessor, b.defaultValidathor, b.validathors, b.validathorsParameterizedType, b.useCompatibleValidathorIfSpecificNotPresent);
 	}
 
 	/**
@@ -196,13 +196,13 @@ public class ValidathorRegistry {
 			SkipAfterValidationProcessor skipAfterValidationProcessor, 
 			AbstractObjectValidathor defaultValidathor,
 			List<Validathor<?>> validathors, 
-			List<ValidathorParametrizedType<?>> validathorsParametrizedType,
+			List<ValidathorParameterizedType<?>> validathorsParameterizedType,
 			boolean useCompatibleValidathorIfSpecificNotPresent) {
 		this.skipBeforeValidationProcessor = skipBeforeValidationProcessor;
 		this.skipAfterValidationProcessor = skipAfterValidationProcessor;
 		this.defaultValidathor = defaultValidathor;
 		this.validathors = validathors;
-		this.validathorsParametrizedType = validathorsParametrizedType;
+		this.validathorsParameterizedType = validathorsParameterizedType;
 		this.useCompatibleValidathorIfSpecificNotPresent = useCompatibleValidathorIfSpecificNotPresent;
 		validateValidathorRegistry(this);
 	}
@@ -234,14 +234,14 @@ public class ValidathorRegistry {
 			throw new RuntimeException("validathors cannot contains more than one validathor for the same class!");
 		}
 		
-		//validate validathors parametrized type
+		//validate validathors parameterized type
 		
-		if(validathorRegistry.getValidathorsParametrizedType() == null) {
-			throw new RuntimeException("validathorsParametrizedType can not be null!");
+		if(validathorRegistry.getValidathorsParameterizedType() == null) {
+			throw new RuntimeException("validathorsParameterizedType can not be null!");
 		}
-		boolean validathorsParametrizedTypeContainsMoreValidathorsForSameClass = containsMoreValidathorsForSameClass(validathorRegistry.getValidathorsParametrizedType());
-		if(validathorsParametrizedTypeContainsMoreValidathorsForSameClass) {
-			throw new RuntimeException("validathorsParametrizedType cannot contains more than one validathor for the same class!");
+		boolean validathorsParameterizedTypeContainsMoreValidathorsForSameClass = containsMoreValidathorsForSameClass(validathorRegistry.getValidathorsParameterizedType());
+		if(validathorsParameterizedTypeContainsMoreValidathorsForSameClass) {
+			throw new RuntimeException("validathorsParameterizedType cannot contains more than one validathor for the same class!");
 		}
 		
 	}

@@ -11,7 +11,7 @@ import lombok.Getter;
  * 
  * <pre>{@code return !map.isEmpty(); }</pre>
  * 
- * What if you want to validate also the values of each entry ? You can set toValidateParametrizedTypeElements to true and then implement the Function that will return 
+ * What if you want to validate also the values of each entry ? You can set toValidateParameterizedTypeElements to true and then implement the Function that will return 
  * the elements of the map to be validated. It can decide to validate only the Values of the map, or you can validate also the Keys.
  * 
  * <pre>{@code  //function to return values
@@ -31,19 +31,19 @@ import lombok.Getter;
  * 
  */
 @Getter
-public abstract class ValidathorParametrizedType<T> extends Validathor<T> {
+public abstract class ValidathorParameterizedType<T> extends Validathor<T> {
 	
-	protected final boolean toValidateParametrizedTypeElements;
+	protected final boolean toValidateParameterizedTypeElements;
 	
-	protected ValidathorParametrizedType(Class<T> typeParameterClass, boolean toValidateParametrizedTypeElements) {
+	protected ValidathorParameterizedType(Class<T> typeParameterClass, boolean toValidateParameterizedTypeElements) {
 		super(typeParameterClass);
-		this.toValidateParametrizedTypeElements = toValidateParametrizedTypeElements;
+		this.toValidateParameterizedTypeElements = toValidateParameterizedTypeElements;
 	}
 	
 	/**
-	 * @return a Function that takes the parametrized object and return the elements to be validated.
+	 * @return a Function that takes the parameterized object and return the elements to be validated.
 	 * Must return an empty collection if there aren't elements to be validated.
 	 */
-	public abstract Function<T, Collection<?>> parametrizedTypeElementsToValidate();
+	public abstract Function<T, Collection<?>> parameterizedTypeElementsToValidate();
 	 
 }

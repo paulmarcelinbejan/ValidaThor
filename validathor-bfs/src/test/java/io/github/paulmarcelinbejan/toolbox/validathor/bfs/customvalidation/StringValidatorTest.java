@@ -13,7 +13,7 @@ import io.github.paulmarcelinbejan.toolbox.validathor.CollectionValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.MapValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.StringValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
+import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.Car;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.YEAR;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.utils.ObjectValorizator;
@@ -28,9 +28,9 @@ class StringValidatorTest {
 		ferrari.getOwners().get(0).setSurname(null);
 		
 		List<Validathor<?>> validathors = List.of(new StringValidathor());
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new CollectionValidathor(true), new MapValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true), new MapValidathor(true));
 		
-		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, validathors, validathorsParametrizedType));
+		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, validathors, validathorsParameterizedType));
 		assertEquals(StringValidathor.class, eBFS.getCausedBy().getClass());
 	}
 	
@@ -40,9 +40,9 @@ class StringValidatorTest {
 		ferrari.getCarMaintenance().get(YEAR._1978).setGarageService("");
 		
 		List<Validathor<?>> validathors = List.of(new StringValidathor());
-		List<ValidathorParametrizedType<?>> validathorsParametrizedType = List.of(new MapValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new MapValidathor(true));
 		
-		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, validathors, validathorsParametrizedType));
+		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, validathors, validathorsParameterizedType));
 		assertEquals(StringValidathor.class, eBFS.getCausedBy().getClass());
 	}
 	

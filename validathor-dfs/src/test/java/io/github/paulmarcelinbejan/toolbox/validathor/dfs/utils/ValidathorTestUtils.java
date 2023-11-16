@@ -3,7 +3,7 @@ package io.github.paulmarcelinbejan.toolbox.validathor.dfs.utils;
 import java.util.List;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
+import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.ValidathorDFS;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
 import io.github.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathor;
@@ -21,7 +21,7 @@ public class ValidathorTestUtils {
 	 * Validate object through DFS (Depth-first search).
 	 * <br> A default {@link ValidathorRegistry} will be used to validate the object.
 	 */
-	public static void validateObjectDFS(@NonNull Object root, List<Validathor<?>> validathors, List<ValidathorParametrizedType<?>> validathorsParametrizedType) throws ValidathorException {
+	public static void validateObjectDFS(@NonNull Object root, List<Validathor<?>> validathors, List<ValidathorParameterizedType<?>> validathorsParameterizedType) throws ValidathorException {
 		
 		ValidathorRegistry registry = ValidathorRegistry
 				.builder()
@@ -29,7 +29,7 @@ public class ValidathorTestUtils {
 				.registerSkipAfterValidationProcessor(new SkipAfterValidationProcessor())
 				.registerObjectValidathor(new ObjectValidathor())
 				.registerValidathors(validathors)
-				.registerValidathorsParametrizedType(validathorsParametrizedType)
+				.registerValidathorsParameterizedType(validathorsParameterizedType)
 				.useCompatibleValidathorIfSpecificNotPresent(true)
 				.build();
 		
@@ -41,14 +41,14 @@ public class ValidathorTestUtils {
 	 * Validate object through DFS (Depth-first search).
 	 * <br> A default {@link ValidathorRegistry} will be used to validate the object.
 	 */
-	public static void validateObjectDFS(@NonNull Object root, SkipBeforeValidationProcessor skipBeforeValidationProcessor, SkipAfterValidationProcessor skipAfterValidationProcessor, List<Validathor<?>> validathors, List<ValidathorParametrizedType<?>> validathorsParametrizedType) throws ValidathorException {
+	public static void validateObjectDFS(@NonNull Object root, SkipBeforeValidationProcessor skipBeforeValidationProcessor, SkipAfterValidationProcessor skipAfterValidationProcessor, List<Validathor<?>> validathors, List<ValidathorParameterizedType<?>> validathorsParameterizedType) throws ValidathorException {
 		
 		ObjectValidathor objectValidathor = new ObjectValidathor();
 		
 		ValidathorRegistry registry = new ValidathorRegistry(skipBeforeValidationProcessor, skipAfterValidationProcessor, objectValidathor);
 		
 		registry.registerValidathors(validathors);
-		registry.registerValidathorsParametrizedType(validathorsParametrizedType);
+		registry.registerValidathorsParameterizedType(validathorsParameterizedType);
 		registry.setUseCompatibleValidathorIfSpecificNotPresent(true);
 		
 		validateObjectDFS(root, registry);

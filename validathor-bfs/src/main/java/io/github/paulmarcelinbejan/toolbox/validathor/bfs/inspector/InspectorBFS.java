@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
+import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ExceptionMessagePattern;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
 import io.github.paulmarcelinbejan.toolbox.validathor.info.Info;
@@ -37,8 +37,8 @@ public class InspectorBFS extends InspectorBase {
 		
 		boolean skipAfterValidation = registry.getSkipAfterValidationProcessor().execute(info.getToValidateClass());
 		
-		if(info.is_ToValidateClass_InstanceOf_ParametrizedType()) {
-			return validateParametrizedType(info, skipAfterValidation);
+		if(info.is_ToValidateClass_InstanceOf_ParameterizedType()) {
+			return validateParameterizedType(info, skipAfterValidation);
 		}
 		
 		return validateSimpleType(info, skipAfterValidation);
@@ -81,32 +81,32 @@ public class InspectorBFS extends InspectorBase {
 	}
 	
 	/**
-	 * validateParametrizedType
+	 * validateParameterizedType
 	 */
 	@SuppressWarnings("unchecked")
-	private <T> List<Info> validateParametrizedType(Info info, boolean skipAfterValidation) throws ValidathorException {
-		ValidathorParametrizedType<T> validathorParametrizedType = (ValidathorParametrizedType<T>) mapValidathorsParametrizedType.get(info.getToValidateClass());
+	private <T> List<Info> validateParameterizedType(Info info, boolean skipAfterValidation) throws ValidathorException {
+		ValidathorParameterizedType<T> validathorParameterizedType = (ValidathorParameterizedType<T>) mapValidathorsParameterizedType.get(info.getToValidateClass());
 		
-		if(validathorParametrizedType == null) {
+		if(validathorParameterizedType == null) {
 			
 			if(registry.isUseCompatibleValidathorIfSpecificNotPresent()) {
-				validathorParametrizedType = (ValidathorParametrizedType<T>) ValidathorUtils.getCompatibleValidathorParametrizedType(info, mapValidathorsParametrizedType, cacheMapCompatibleValidathorsParametrizedType);
+				validathorParameterizedType = (ValidathorParameterizedType<T>) ValidathorUtils.getCompatibleValidathorParameterizedType(info, mapValidathorsParameterizedType, cacheMapCompatibleValidathorsParameterizedType);
 			}
 			
-			if(validathorParametrizedType == null) {
+			if(validathorParameterizedType == null) {
 				return validateWithDefaultValidathor(info, skipAfterValidation);
 			}
 			
 		}
 		
-		List<String> fieldsNameToSkip = validathorParametrizedType.getFieldsNameToSkip();
+		List<String> fieldsNameToSkip = validathorParameterizedType.getFieldsNameToSkip();
 		
 		T toValidate = (T) info.getToValidateValue();
 		
-		boolean isValid = validathorParametrizedType.isValid(toValidate);
+		boolean isValid = validathorParameterizedType.isValid(toValidate);
 		
 		if(!isValid) {
-			throw new ValidathorException(validathorParametrizedType, ExceptionMessagePattern.VALIDATION_FAILED, validathorParametrizedType.getClass().getSimpleName(), info.getToValidateName(), info.getOuterObject());
+			throw new ValidathorException(validathorParameterizedType, ExceptionMessagePattern.VALIDATION_FAILED, validathorParameterizedType.getClass().getSimpleName(), info.getToValidateName(), info.getOuterObject());
 		}
 		
 		if(toValidate == null) {
@@ -120,10 +120,10 @@ public class InspectorBFS extends InspectorBase {
 			newToExplore.addAll(fieldsToValidate);
 		}
 		
-		boolean isToValidateParametrizedTypeElements = validathorParametrizedType.isToValidateParametrizedTypeElements();
+		boolean isToValidateParameterizedTypeElements = validathorParameterizedType.isToValidateParameterizedTypeElements();
 		
-		if(isToValidateParametrizedTypeElements) {
-			Collection<?> objectsToValidate = validathorParametrizedType.parametrizedTypeElementsToValidate().apply(toValidate);
+		if(isToValidateParameterizedTypeElements) {
+			Collection<?> objectsToValidate = validathorParameterizedType.parameterizedTypeElementsToValidate().apply(toValidate);
 			List<Info> elementsToValidate = newToExplore(toValidate, info.getToValidateName(), objectsToValidate);
 			newToExplore.addAll(elementsToValidate);
 		}

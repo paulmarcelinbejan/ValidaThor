@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParametrizedType;
+import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.info.Info;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -159,23 +159,23 @@ public class ValidathorUtils {
 	}
 	
 	/**
-	 * getCompatibleValidathorParametrizedType
+	 * getCompatibleValidathorParameterizedType
 	 */
-	public static ValidathorParametrizedType<?> getCompatibleValidathorParametrizedType(Info info, Map<Class<?>, ValidathorParametrizedType<?>> mapValidathorsParametrizedType, Map<Class<?>, ValidathorParametrizedType<?>> cacheMapCompatibleValidathorsParametrizedType) {
-		ValidathorParametrizedType<?> compatibleValidathorParametrizedType = cacheMapCompatibleValidathorsParametrizedType.get(info.getToValidateClass());
+	public static ValidathorParameterizedType<?> getCompatibleValidathorParameterizedType(Info info, Map<Class<?>, ValidathorParameterizedType<?>> mapValidathorsParameterizedType, Map<Class<?>, ValidathorParameterizedType<?>> cacheMapCompatibleValidathorsParameterizedType) {
+		ValidathorParameterizedType<?> compatibleValidathorParameterizedType = cacheMapCompatibleValidathorsParameterizedType.get(info.getToValidateClass());
 		
-		if(compatibleValidathorParametrizedType != null) {
-			return compatibleValidathorParametrizedType;
+		if(compatibleValidathorParameterizedType != null) {
+			return compatibleValidathorParameterizedType;
 		}
 		
-		Optional<Class<?>> classAssignableFrom = getMostGenericClassThatIsAssignableFrom(info.getToValidateClass(), mapValidathorsParametrizedType.keySet());
+		Optional<Class<?>> classAssignableFrom = getMostGenericClassThatIsAssignableFrom(info.getToValidateClass(), mapValidathorsParameterizedType.keySet());
 		
 		if(classAssignableFrom.isPresent()) {
-			compatibleValidathorParametrizedType = mapValidathorsParametrizedType.get(classAssignableFrom.get());
-			cacheMapCompatibleValidathorsParametrizedType.put(info.getToValidateClass(), compatibleValidathorParametrizedType);
+			compatibleValidathorParameterizedType = mapValidathorsParameterizedType.get(classAssignableFrom.get());
+			cacheMapCompatibleValidathorsParameterizedType.put(info.getToValidateClass(), compatibleValidathorParameterizedType);
 		}
 		
-		return compatibleValidathorParametrizedType;
+		return compatibleValidathorParameterizedType;
 	}
 	
 	/**

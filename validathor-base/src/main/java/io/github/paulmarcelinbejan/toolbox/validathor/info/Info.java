@@ -20,7 +20,7 @@ public class Info {
 		this.toValidateName = toValidateName;
 		this.toValidateValue = toValidateValue;
 		
-		is_ToValidateClass_InstanceOf_ParametrizedType = ValidathorUtils.isParameterizedType(toValidateClass);
+		is_ToValidateClass_InstanceOf_ParameterizedType = ValidathorUtils.isParameterizedType(toValidateClass);
 	}
 	
 	/**
@@ -39,9 +39,9 @@ public class Info {
 	private Class<?> toValidateClass;
 	
 	/**
-	 * true if toValidateClass is an instanceOf ParametrizedType
+	 * true if toValidateClass is an instanceOf ParameterizedType
 	 */
-	private boolean is_ToValidateClass_InstanceOf_ParametrizedType;
+	private boolean is_ToValidateClass_InstanceOf_ParameterizedType;
 	
 	/**
 	 * the name of the field to be validated
