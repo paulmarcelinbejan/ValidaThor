@@ -13,14 +13,14 @@ import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.CollectionValidathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.StringValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.entities.Car;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.utils.ObjectValorizator;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.utils.ValidathorTestUtils;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
-import io.github.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathor;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.object.NotNullAndValidateInnerFieldsObjectValidathor;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.string.NotNullAndNotEmptyStringValidathor;
 
 class CollectionValidatorTest {
 	
@@ -51,11 +51,11 @@ class CollectionValidatorTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.getOwners().get(1).setAge(null);
 		
-		List<Validathor<?>> validathors = List.of(new StringValidathor());
+		List<Validathor<?>> validathors = List.of(new NotNullAndNotEmptyStringValidathor());
 		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true));
 		
 		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
-		assertEquals(ObjectValidathor.class, eDFS.getCausedBy().getClass());
+		assertEquals(NotNullAndValidateInnerFieldsObjectValidathor.class, eDFS.getCausedBy().getClass());
 	}
 	
 	@Test
@@ -63,7 +63,7 @@ class CollectionValidatorTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.setOwners(null);
 		
-		List<Validathor<?>> validathors = List.of(new StringValidathor());
+		List<Validathor<?>> validathors = List.of(new NotNullAndNotEmptyStringValidathor());
 		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionCanBeNullButNotEmptyValidathor(true));
 
 		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
@@ -96,7 +96,7 @@ class CollectionValidatorTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.setOwners(new ArrayList<>());
 		
-		List<Validathor<?>> validathors = List.of(new StringValidathor());
+		List<Validathor<?>> validathors = List.of(new NotNullAndNotEmptyStringValidathor());
 		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionCanNotBeNullButCanBeEmptyValidathor(true));
 
 		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
@@ -203,7 +203,7 @@ class CollectionValidatorTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.getOwners().get(1).setSurname("");
 		
-		List<Validathor<?>> validathors = List.of(new StringValidathor());
+		List<Validathor<?>> validathors = List.of(new NotNullAndNotEmptyStringValidathor());
 		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionCanBeNullAndCanBeEmptyValidathor(false));
 
 		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
@@ -214,7 +214,7 @@ class CollectionValidatorTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.getOwners().get(0).setAge(null);
 		
-		List<Validathor<?>> validathors = List.of(new StringValidathor());
+		List<Validathor<?>> validathors = List.of(new NotNullAndNotEmptyStringValidathor());
 		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionCanNotBeNullButCanBeEmptyValidathor(false));
 
 		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));

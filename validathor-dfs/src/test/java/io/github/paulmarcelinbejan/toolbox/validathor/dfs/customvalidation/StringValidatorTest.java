@@ -10,8 +10,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.CollectionValidathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.MapValidathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.StringValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.entities.Car;
@@ -19,6 +17,10 @@ import io.github.paulmarcelinbejan.toolbox.validathor.dfs.entities.YEAR;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.utils.ObjectValorizator;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.utils.ValidathorTestUtils;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.map.NotNullAndNotEmptyAndValidateValueMapValidathor;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.string.NotEmptyStringValidathor;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.string.NotNullAndNotEmptyStringValidathor;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.string.NotNullStringValidathor;
 
 class StringValidatorTest {
 	
@@ -27,11 +29,11 @@ class StringValidatorTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.getOwners().get(0).setSurname(null);
 		
-		List<Validathor<?>> validathors = List.of(new StringValidathor());
-		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true), new MapValidathor(true));
+		List<Validathor<?>> validathors = List.of(new NotNullAndNotEmptyStringValidathor());
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true), new NotNullAndNotEmptyAndValidateValueMapValidathor(true));
 		
 		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
-		assertEquals(StringValidathor.class, eDFS.getCausedBy().getClass());
+		assertEquals(NotNullAndNotEmptyStringValidathor.class, eDFS.getCausedBy().getClass());
 	}
 	
 	@Test
@@ -39,11 +41,11 @@ class StringValidatorTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.getCarMaintenance().get(YEAR._1978).setGarageService("");
 		
-		List<Validathor<?>> validathors = List.of(new StringValidathor());
-		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new MapValidathor(true));
+		List<Validathor<?>> validathors = List.of(new NotNullAndNotEmptyStringValidathor());
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new NotNullAndNotEmptyAndValidateValueMapValidathor(true));
 		
 		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, validathorsParameterizedType));
-		assertEquals(StringValidathor.class, eDFS.getCausedBy().getClass());
+		assertEquals(NotNullAndNotEmptyStringValidathor.class, eDFS.getCausedBy().getClass());
 	}
 	
 	@Test
@@ -51,25 +53,9 @@ class StringValidatorTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.getManufacturer().getHeadquarters().setCity(null);
 		
-		List<Validathor<?>> validathors = List.of(new StringCanBeNullButNotEmptyValidathor());
+		List<Validathor<?>> validathors = List.of(new NotEmptyStringValidathor());
 		
 		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, Collections.emptyList()));
-	}
-	
-	public class StringCanBeNullButNotEmptyValidathor extends Validathor<String> {
-
-		public StringCanBeNullButNotEmptyValidathor() {
-			super(String.class);
-		}
-
-		@Override
-		public boolean isValid(String toValidate) {
-			if(toValidate == null) {
-				return true;
-			}
-			return !toValidate.isEmpty();
-		}
-		
 	}
 	
 	@Test
@@ -77,22 +63,9 @@ class StringValidatorTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.getManufacturer().getHeadquarters().setCity("");
 
-		List<Validathor<?>> validathors = List.of(new StringCanNotBeNullButCanBeEmptyValidathor());
+		List<Validathor<?>> validathors = List.of(new NotNullStringValidathor());
 		
 		assertDoesNotThrow(() -> ValidathorTestUtils.validateObjectDFS(ferrari, validathors, Collections.emptyList()));
-	}
-	
-	public class StringCanNotBeNullButCanBeEmptyValidathor extends Validathor<String> {
-
-		public StringCanNotBeNullButCanBeEmptyValidathor() {
-			super(String.class);
-		}
-
-		@Override
-		public boolean isValid(String toValidate) {
-			return toValidate != null;
-		}
-		
 	}
 	
 	@Test

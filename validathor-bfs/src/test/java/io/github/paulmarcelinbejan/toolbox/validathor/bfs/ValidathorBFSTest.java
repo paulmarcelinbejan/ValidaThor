@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 
 import io.github.paulmarcelinbejan.toolbox.validathor.ArrayListValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.LocalDateValidathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.MapValidathor;
-import io.github.paulmarcelinbejan.toolbox.validathor.StringValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.entities.Car;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.utils.ObjectValorizator;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.utils.ValidathorTestUtils;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.map.NotNullAndNotEmptyAndValidateValueMapValidathor;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.string.NotNullAndNotEmptyStringValidathor;
 
 class ValidathorBFSTest {
 	
@@ -33,7 +33,7 @@ class ValidathorBFSTest {
 		ferrari.getManufacturer().setFoundation(null);
 		
 		List<Validathor<?>> validathors = List.of(new LocalDateValidathor());
-		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new MapValidathor(true), new ArrayListValidathor(true));
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new NotNullAndNotEmptyAndValidateValueMapValidathor(true), new ArrayListValidathor(true));
 		
 		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, validathors, validathorsParameterizedType));
 		assertEquals(LocalDateValidathor.class, eBFS.getCausedBy().getClass());
@@ -44,11 +44,11 @@ class ValidathorBFSTest {
 		Car ferrari = ObjectValorizator.populateCar();
 		ferrari.setModel("");
 		
-		List<Validathor<?>> validathors = List.of(new StringValidathor());
-		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new MapValidathor(true), new ArrayListValidathor(true));
+		List<Validathor<?>> validathors = List.of(new NotNullAndNotEmptyStringValidathor());
+		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new NotNullAndNotEmptyAndValidateValueMapValidathor(true), new ArrayListValidathor(true));
 		
 		ValidathorException eBFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectBFS(ferrari, validathors, validathorsParameterizedType));
-		assertEquals(StringValidathor.class, eBFS.getCausedBy().getClass());
+		assertEquals(NotNullAndNotEmptyStringValidathor.class, eBFS.getCausedBy().getClass());
 	}
 
 }

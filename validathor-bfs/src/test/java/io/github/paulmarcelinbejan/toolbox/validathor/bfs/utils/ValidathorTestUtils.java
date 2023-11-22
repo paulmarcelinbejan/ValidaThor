@@ -6,7 +6,7 @@ import io.github.paulmarcelinbejan.toolbox.validathor.Validathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.ValidathorParameterizedType;
 import io.github.paulmarcelinbejan.toolbox.validathor.bfs.ValidathorBFS;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
-import io.github.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathor;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.object.NotNullAndValidateInnerFieldsObjectValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import io.github.paulmarcelinbejan.toolbox.validathor.registry.ValidathorRegistry;
@@ -27,7 +27,7 @@ public class ValidathorTestUtils {
 				.builder()
 				.registerSkipBeforeValidationProcessor(new SkipBeforeValidationProcessor())
 				.registerSkipAfterValidationProcessor(new SkipAfterValidationProcessor())
-				.registerObjectValidathor(new ObjectValidathor())
+				.registerObjectValidathor(new NotNullAndValidateInnerFieldsObjectValidathor())
 				.registerValidathors(validathors)
 				.registerValidathorsParameterizedType(validathorsParameterizedType)
 				.useCompatibleValidathorIfSpecificNotPresent(true)
@@ -42,7 +42,7 @@ public class ValidathorTestUtils {
 	 */
 	public static void validateObjectBFS(@NonNull Object root, SkipBeforeValidationProcessor skipBeforeValidationProcessor, SkipAfterValidationProcessor skipAfterValidationProcessor, List<Validathor<?>> validathors, List<ValidathorParameterizedType<?>> validathorsParameterizedType) throws ValidathorException {
 		
-		ObjectValidathor objectValidathor = new ObjectValidathor();
+		NotNullAndValidateInnerFieldsObjectValidathor objectValidathor = new NotNullAndValidateInnerFieldsObjectValidathor();
 		
 		ValidathorRegistry registry = new ValidathorRegistry(skipBeforeValidationProcessor, skipAfterValidationProcessor, objectValidathor);
 		

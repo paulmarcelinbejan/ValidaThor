@@ -16,7 +16,7 @@ import io.github.paulmarcelinbejan.toolbox.validathor.dfs.entities.level1.level2
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.utils.ObjectValorizator;
 import io.github.paulmarcelinbejan.toolbox.validathor.dfs.utils.ValidathorTestUtils;
 import io.github.paulmarcelinbejan.toolbox.validathor.exception.ValidathorException;
-import io.github.paulmarcelinbejan.toolbox.validathor.impl.ObjectValidathor;
+import io.github.paulmarcelinbejan.toolbox.validathor.impl.object.NotNullAndValidateInnerFieldsObjectValidathor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipAfterValidationProcessor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.SkipBeforeValidationProcessor;
 import io.github.paulmarcelinbejan.toolbox.validathor.processor.config.SkipAfterValidationConfig;
@@ -35,7 +35,7 @@ class SkipAfterValidationProcessorTest {
 		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true));
 		
 		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParameterizedType));
-		assertEquals(ObjectValidathor.class, eDFS.getCausedBy().getClass());
+		assertEquals(NotNullAndValidateInnerFieldsObjectValidathor.class, eDFS.getCausedBy().getClass());
 		
 		ferrari.getManufacturer().setHeadquarters(new Headquarters(null));
 		
@@ -54,7 +54,7 @@ class SkipAfterValidationProcessorTest {
 		List<ValidathorParameterizedType<?>> validathorsParameterizedType = List.of(new CollectionValidathor(true));
 		
 		ValidathorException eDFS = assertThrows(ValidathorException.class, () -> ValidathorTestUtils.validateObjectDFS(ferrari, new SkipBeforeValidationProcessor(), skipAfterValidationProcessor, Collections.emptyList(), validathorsParameterizedType));
-		assertEquals(ObjectValidathor.class, eDFS.getCausedBy().getClass());
+		assertEquals(NotNullAndValidateInnerFieldsObjectValidathor.class, eDFS.getCausedBy().getClass());
 		
 		ferrari.getManufacturer().setHeadquarters(new Headquarters(null));
 		

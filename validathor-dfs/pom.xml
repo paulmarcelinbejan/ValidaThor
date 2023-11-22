@@ -21,6 +21,11 @@
 			<artifactId>validathor-base</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>io.github.paulmarcelinbejan.toolbox</groupId>
+			<artifactId>validathor-impl</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 		</dependency>
