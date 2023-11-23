@@ -18,9 +18,7 @@ ValidaThor is composed of 4 modules:
   - Object
   - String
   - List
-  - Map <br>
-  
-  ![Depth-first search](https://raw.githubusercontent.com/paulmarcelinbejan/ValidaThor/develop/V3/resources/DFS.png)<br>
+  - Map
 
 ## How to...
 
