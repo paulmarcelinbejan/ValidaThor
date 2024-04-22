@@ -132,26 +132,21 @@ ValidathorRegistry validathorRegistry = ValidathorRegistry.builder()
 	.build();
 ```
 
-Let me give you an example of why is useful the config useCompatibleValidathorIfSpecificNotPresent
-Let's say you have a field of type ArrayList, and you haven't registered a ValidathorParameterizedType for that type, but you have registered a ValidathorParameterizedType for a compatible class, like Collection, if useCompatibleValidathorIfSpecificNotPresent is set to true, the CollectionValidathor can be used to validate the ArrayList
+Let me provide an example of why 'useCompatibleValidathorIfSpecificNotPresent' is useful. 
+Suppose you have a field of type 'ArrayList', and you haven't registered a 'ValidathorParameterizedType' for that type. However, you have registered a 'ValidathorParameterizedType' for a compatible class/interface, like 'Collection'. If 'useCompatibleValidathorIfSpecificNotPresent' is set to true, the 'CollectionValidathor' can be used to validate the 'ArrayList'.
 
-
-Is is also possible to configure the two SkipProcessor:
+It's also possible to configure two 'SkipProcessor' instances:
 
 1. SkipBeforeValidationProcessor.
 2. SkipAfterValidationProcessor.
 
-They both have as fields two sets, a set of classes, and a set of String (package name).
-Before validating an object, if the type of this object is present in the set of classes of SkipBeforeValidationProcessor, or the Class is in a package that starts with one of the value of the set of string, then it will be skipped, and no validation will be executed on this object.
-While if the type of object is present in the set of classes of SkipAfterValidationProcessor, or the Class is in a package that starts with one of the value of the set of string, then it will be validated, but it will not lookup internally to validate the fields.
+Both have two sets as fields: a set of classes and a set of strings (package names). Before validating an object, if the type of this object is present in the set of classes of 'SkipBeforeValidationProcessor', or the class is in a package that starts with one of the values in the set of strings, then it will be skipped, and no validation will be executed on this object. However, if the type of object is present in the set of classes of 'SkipAfterValidationProcessor', or the class is in a package that starts with one of the values in the set of strings, then it will be validated, but it will not look up internally to validate the fields.
 
-This is the reason why the SkipAfterValidationProcessor contains by default the "java" package.
-
+This is the reason why 'SkipAfterValidationProcessor' contains, by default, the "java" package.
 
 ### How to start the validation ?
 
-You need to choose between BFS and DFS algorithm, then create an instance accordingly,
-Constructors parameters are, the validathorRegistry, and a boolean indicating if you want to collect all the errors, or you want to trigger the exception as soon as one happende.
+You need to choose between BFS and DFS algorithms, then create an instance accordingly. The constructor parameters are the validathorRegistry and a boolean indicating if you want to collect all the errors, or if you want to trigger the exception as soon as one occurs.
 
 BFS:
 ```java
